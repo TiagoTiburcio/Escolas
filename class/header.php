@@ -30,10 +30,10 @@
                 <ul class="nav navbar-nav">
                   <li><a href="../home/index.php"><span class="glyphicon glyphicon-home"></span></a></li>
                   <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Manuten&ccedil;&atilde;o Usu&aacute;rios<span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Escolas<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="../home/listarusuarios.php">Listar Todos os Usu&aacute;rios</a></li>
-                        <li><a href="../home/novousuario.php">Novo Usu&aacute;rio</a></li>
+                        <li><a href="../home/listarescolas.php">Listar Todas as Escolas</a></li>
+                        <!--<li><a href="../home/novousuario.php">Novo Usu&aacute;rio</a></li>-->
                     </ul>
                   </li>                  
                 </ul>

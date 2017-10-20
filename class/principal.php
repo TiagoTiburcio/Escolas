@@ -14,7 +14,7 @@
 include_once '../class/database.php';
 
 class Usuario extends Database {
-    private $id;
+    private $codigo;
     
     private $usuario;
     
@@ -22,18 +22,16 @@ class Usuario extends Database {
     
     private $senha;
     
-    private $ativo;
-    
-    private $perfil;
+    private $diretoria;
     
     function __construct(){ }
 
-    function setId($_id){
-        $this->id = $_id;
+    function setCodigo($_codigo){
+        $this->codigo = $_codigo;
     }
 
-    function getId(){
-        return $this->id;
+    function getCodigo(){
+        return $this->codigo;
     }
         
     private function setNome($_nome){
@@ -65,22 +63,14 @@ class Usuario extends Database {
         return $resultado;
     }
     
-    private function setAtivo($_ativo){
-        $this->ativo = $_ativo;
+    private function setDiretoria($_diretoria){
+        $this->diretoria = $_diretoria;
     }
             
-    function getAtivo(){
-        return $this->ativo;
+    function getDiretoria(){
+        return $this->diretoria;
     }
-    
-    private function setPerfil($_perfil){
-        $this->perfil = $_perfil;
-    }
-            
-    function getPerfil(){
-        return $this->perfil;
-    }
-    
+        
     // 0 - usuario não gravado 1 - usuario existente na Base de Dados
     private function testeUsuarioCadatrado($_usuario){
         $consulta_usuario1 = "SELECT count(`usuario`.`codigo`) as cont FROM `usuario` where usuario = '$_usuario';";                                
@@ -98,9 +88,8 @@ class Usuario extends Database {
             $this->setNome($_nome);
             $this->setUsuario($_usuario);
             $this->setSenha($this->getSenhaEncriptada($_senha));
-            $this->setAtivo(1);
-            $this->setPerfil(0);
-            $consulta_usuario2 = "INSERT INTO `usuario`(`usuario`,`senha`,`nome_usuario`,`ativo`,`perfil`)VALUES( '".$this->getUsuario()."' , '".$this->getSenha()."' , '".$this->getNome()."' ,".$this->getAtivo().",".$this->getPerfil().");";
+            $this->setDiretoria('');            
+            $consulta_usuario2 = "INSERT INTO `usuario`(`usuario`,`senha`,`nome`,`diretoria`)VALUES( '".$this->getUsuario()."' , '".$this->getSenha()."' , '".$this->getNome()."' ,".$this->getDiretoria().");";
             $resultado_usuario2 = mysqli_query($this->connect(), $consulta_usuario2);            
             $resultado = '1';
         }        
@@ -120,12 +109,11 @@ class Usuario extends Database {
             $consulta_usuario4 = "SELECT * FROM usuario where usuario = '$_usuario';";                                
             $resultado_usuario4 = mysqli_query($this->connect(), $consulta_usuario4);
             foreach ($resultado_usuario4 as $table_usuario4){
-                $this->setId($table_usuario4["codigo"]);
+                $this->setCodigo($table_usuario4["codigo"]);
                 $this->setUsuario( $table_usuario4["usuario"]);
                 $this->setNome($table_usuario4["nome"]);
-                $this->setSenha($table_usuario4["senha"]);
-                //$this->setAtivo($table_usuario4["ativo"]);
-                $this->setPerfil($table_usuario4["diretoria"]);
+                $this->setSenha($table_usuario4["senha"]);               
+                $this->setDiretoria($table_usuario4["diretoria"]);
             }            
         }
         return $this->testeUsuarioCadatrado($_usuario);
@@ -134,7 +122,7 @@ class Usuario extends Database {
     //Retorno == 0 - erro gravar nova senha na base de dados | == 1 - nova senha gravada com sucesso
     function gravaNovaSenha($_usuario,$_novaSenha){        
         if ($this->iniUsuario($_usuario) == 1){            
-            $consulta_usuario5 = "UPDATE `usuario` SET `senha` = '".$this->getSenhaEncriptada($_novaSenha)."' WHERE `id` = '".$this->getId()."';";                                
+            $consulta_usuario5 = "UPDATE `usuario` SET `senha` = '".$this->getSenhaEncriptada($_novaSenha)."' WHERE `id` = '".$this->getCodigo()."';";                                
             $resultado_usuario5 = mysqli_query($this->connect(), $consulta_usuario5);
         }
         return $this->iniUsuario($_usuario);
@@ -158,10 +146,9 @@ class Usuario extends Database {
             $this->iniUsuario($_usuario);
             $this->setNome($_nome);
             $this->setUsuario($_usuario);
-            $this->setSenha($this->getSenhaEncriptada($_senha));
-            $this->setAtivo(1);
-            $this->setPerfil(0);                        
-            $consulta_usuario6 = "UPDATE `usuario` SET `usuario` = '".$this->getUsuario()."' , `senha` = '".$this->getSenha()."' , `nome_usuario` = '".$this->getNome()."' ,`ativo` = ".$this->getAtivo()." , `perfil` = ".$this->getPerfil()." WHERE `id` = ".$this->getId().";";
+            $this->setSenha($this->getSenhaEncriptada($_senha));            
+            $this->setDiretoria('');                        
+            $consulta_usuario6 = "UPDATE `usuario` SET `usuario` = '".$this->getUsuario()."' , `senha` = '".$this->getSenha()."' , `nome` = '".$this->getNome()."' ,`diretoria` = ".$this->getDiretoria()." WHERE `codigo` = ".$this->getCodigo().";";
             $resultado_usuario6 = mysqli_query($this->connect(), $consulta_usuario6);            
             $resultado = '1';
         }        
@@ -187,6 +174,128 @@ class Usuario extends Database {
             echo '<META http-equiv="refresh" content="0;../home/login.php">';
         }        
     }
+    
+    function __destruct() {}
+}
+
+class Escolas extends Database {
+    private $codigo;
+    
+    private $codigo_mec;
+    
+    private $municipio;
+    
+    private $nome;
+    
+    private $diretoria;
+    
+    function __construct(){ }
+
+    function setCodigo($_codigo){
+        $this->codigo = $_codigo;
+    }
+
+    function getCodigo(){
+        return $this->codigo;
+    }
+        
+    private function setNome($_nome){
+        $this->nome = $_nome;
+    }
+
+    function getNome(){
+        return $this->nome;
+    }
+        
+    private function setCodigoMec($_codigoMec){
+        $this->codigo_mec = $_codigoMec;
+    }
+
+    function getCodigoMec(){
+        return $this->codigo_mec;
+    }
+    
+    private function setMunicipio($_municipio){
+        $this->municipio = $_municipio;
+    }
+            
+    function getMunicipio(){
+        return $this->municipio;
+    }
+        
+    private function setDiretoria($_diretoria){
+        $this->diretoria = $_diretoria;
+    }
+            
+    function getDiretoria(){
+        return $this->diretoria;
+    }
+       
+    // retorna lista com todos os usuarios cadastrados
+    function listaEcolas(){        
+        $consulta_usuario3 = "SELECT * FROM escolas_cadastro;";                                
+        $resultado_usuario3 = mysqli_query($this->connect(), $consulta_usuario3);
+        return $resultado_usuario3;
+    }
+    
+    function listaEcolasP($_dre, $_municipio, $_nome, $_inep){        
+        $consulta_usuario3 = "SELECT * FROM escolas_cadastro where codigo_mec like '%".$_inep."%' and nome like '%".$_nome."%' and municipio like '%".$_municipio."%' and diretoria like '%".$_dre."%';";
+        $resultado_usuario3 = mysqli_query($this->connect(), $consulta_usuario3);
+        return $resultado_usuario3;
+    }
+    
+    // retorno = 1 - usuario cadastrado 0 - usuario não cadastrado
+    function iniUsuario($_usuario){
+        if ($this->testeUsuarioCadatrado($_usuario) == 1){
+            $consulta_usuario4 = "SELECT * FROM usuario where usuario = '$_usuario';";                                
+            $resultado_usuario4 = mysqli_query($this->connect(), $consulta_usuario4);
+            foreach ($resultado_usuario4 as $table_usuario4){
+                $this->setCodigo($table_usuario4["codigo"]);
+                $this->setUsuario( $table_usuario4["usuario"]);
+                $this->setNome($table_usuario4["nome"]);
+                $this->setSenha($table_usuario4["senha"]);               
+                $this->setDiretoria($table_usuario4["diretoria"]);
+            }            
+        }
+        return $this->testeUsuarioCadatrado($_usuario);
+    }       
+    
+    //Retorno == 0 - erro gravar nova senha na base de dados | == 1 - nova senha gravada com sucesso
+    function gravaNovaSenha($_usuario,$_novaSenha){        
+        if ($this->iniUsuario($_usuario) == 1){            
+            $consulta_usuario5 = "UPDATE `usuario` SET `senha` = '".$this->getSenhaEncriptada($_novaSenha)."' WHERE `id` = '".$this->getCodigo()."';";                                
+            $resultado_usuario5 = mysqli_query($this->connect(), $consulta_usuario5);
+        }
+        return $this->iniUsuario($_usuario);
+    }
+
+    //Retorno == 0 - erro gravar nova senha na base de dados | == 1 - nova senha gravada com sucesso
+    function verificaUsuario($_usuario,$_senha){        
+        $resultado = 0;
+        if ($this->iniUsuario($_usuario) == 1){            
+            if($this->getSenhaEncriptada($_senha) == $this->getSenha()){
+                $resultado = 1;
+            }            
+        }
+        return $resultado;
+    }
+    
+     // 0 - usuario não gravado 1 - usuario gravado com sucesso na Base de Dados
+    function editUsuario($_usuario,$_nome,$_senha){
+        $resultado = '0';
+        if($this->testeUsuarioCadatrado($_usuario) == 1){            
+            $this->iniUsuario($_usuario);
+            $this->setNome($_nome);
+            $this->setUsuario($_usuario);
+            $this->setSenha($this->getSenhaEncriptada($_senha));            
+            $this->setDiretoria('');                        
+            $consulta_usuario6 = "UPDATE `usuario` SET `usuario` = '".$this->getUsuario()."' , `senha` = '".$this->getSenha()."' , `nome` = '".$this->getNome()."' ,`diretoria` = ".$this->getDiretoria()." WHERE `codigo` = ".$this->getCodigo().";";
+            $resultado_usuario6 = mysqli_query($this->connect(), $consulta_usuario6);            
+            $resultado = '1';
+        }        
+        return $resultado;
+    }
+    
     
     function __destruct() {}
 }

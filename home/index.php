@@ -30,7 +30,7 @@
 //            
             $teste1 = $usuario->verificaUsuario('tiagoc', '12345');
             
-            echo "Login: ".$usuario->getId()."Nome: ".$usuario->getNome()." Senha: ".$usuario->getSenha()."<br/>".$teste1;
+            echo "Login: ".$usuario->getCodigo()."Nome: ".$usuario->getNome()." Senha: ".$usuario->getSenha()."<br/>".$teste1;
             
         ?>         
             </div>
