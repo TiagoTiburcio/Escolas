@@ -17,7 +17,7 @@
         </div>
         <div class="col-xs-12 col-lg-8 text-center">
             <h2>Atualização Cadastro Escolas CODIN</h2>
-            <h2><small>Atualização de dados cadastrados sobre equipamentos de Informática Escolas</small></h2>
+            <h2><small>Atualização de dados cadastradais Equipamentos de Informática Escolas</small></h2>
         </div>        
     </div>
     <div class="row">
@@ -29,13 +29,13 @@
                 </div>
                 <ul class="nav navbar-nav">
                   <li><a href="../home/index.php"><span class="glyphicon glyphicon-home"></span></a></li>
-                  <li class="dropdown">
+<!--                  <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Escolas<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="../home/listarescolas.php">Listar Todas as Escolas</a></li>
-                        <!--<li><a href="../home/novousuario.php">Novo Usu&aacute;rio</a></li>-->
+                        <li><a href="../home/novousuario.php">Novo Usu&aacute;rio</a></li>
                     </ul>
-                  </li>                  
+                  </li>                  -->
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                   <li><a href="../home/novasenha.php"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['nome_usuario']; ?></a></li>

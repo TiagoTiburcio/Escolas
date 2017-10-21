@@ -122,7 +122,7 @@ class Usuario extends Database {
     //Retorno == 0 - erro gravar nova senha na base de dados | == 1 - nova senha gravada com sucesso
     function gravaNovaSenha($_usuario,$_novaSenha){        
         if ($this->iniUsuario($_usuario) == 1){            
-            $consulta_usuario5 = "UPDATE `usuario` SET `senha` = '".$this->getSenhaEncriptada($_novaSenha)."' WHERE `id` = '".$this->getCodigo()."';";                                
+            $consulta_usuario5 = "UPDATE `usuario` SET `senha` = '".$this->getSenhaEncriptada($_novaSenha)."' WHERE `codigo` = '".$this->getCodigo()."';";                                
             $resultado_usuario5 = mysqli_query($this->connect(), $consulta_usuario5);
         }
         return $this->iniUsuario($_usuario);
@@ -169,9 +169,12 @@ class Usuario extends Database {
             unset ($_SESSION['login']);
             unset ($_SESSION['pass']);
             unset ($_SESSION['nome_usuario']);
+            unset ($_SESSION['diretoria']);
 
             //Redireciona para a página de autenticação
             echo '<META http-equiv="refresh" content="0;../home/login.php">';
+        } else {
+            $this->iniUsuario($_SESSION['login']);
         }        
     }
     
@@ -245,7 +248,7 @@ class Escolas extends Database {
     }
     
     // retorno = 1 - usuario cadastrado 0 - usuario não cadastrado
-    function iniUsuario($_usuario){
+    function iniEscola($_codigo){
         if ($this->testeUsuarioCadatrado($_usuario) == 1){
             $consulta_usuario4 = "SELECT * FROM usuario where usuario = '$_usuario';";                                
             $resultado_usuario4 = mysqli_query($this->connect(), $consulta_usuario4);

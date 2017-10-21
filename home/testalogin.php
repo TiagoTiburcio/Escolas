@@ -14,6 +14,7 @@ if ($usuario->verificaUsuario($login, $pass_branco) == 1) {
 	$_SESSION['login'] = $usuario->getUsuario();
 	$_SESSION['pass'] = $usuario->getSenha();
         $_SESSION['nome_usuario'] = $usuario->getNome();
+        $_SESSION['diretoria'] = $usuario->getDiretoria();
         echo '<META http-equiv="refresh" content="0;../home/index.php">';
 }
 
@@ -26,6 +27,8 @@ else {
 	unset ($_SESSION['login']);
 	unset ($_SESSION['pass']);
         unset ($_SESSION['nome_usuario']);
+        unset ($_SESSION['diretoria']);
+        
 
 	//Redireciona para a página de autentica��o
 	echo '<META http-equiv="refresh" content="0;../home/login.php">';
