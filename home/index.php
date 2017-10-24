@@ -77,7 +77,7 @@
                         <td class="text-center"><?php echo $escola->imprimiSituacao($table_escolas["laboratorio"]); ?></td>
                         <td class="text-center"><?php echo $escola->imprimiSituacao($table_escolas["wifi"]); ?></td>
                         <td class="text-center"><?php echo $escola->imprimiSituacao($table_escolas["diario"]); ?></td>
-                        <td class="text-center"><?php echo '<a type="button" class="btn btn-primary" target="_blank" href="../home/editescola.php?codigo='.$table_escolas["codigo_escola"].'"><span class="glyphicon glyphicon-edit"></span></a>';?></td>                        
+                        <td class="text-center"><?php echo '<a type="button" class="btn btn-primary" target="" href="../home/editescola.php?codigo='.$table_escolas["codigo_escola"].'"><span class="glyphicon glyphicon-edit"></span></a>';?></td>                        
                     </tr>  
                         <?php
                                 }

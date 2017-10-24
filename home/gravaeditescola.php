@@ -1,5 +1,5 @@
 <?php
-     include_once '../class/usuario.php';
+     include_once '../class/principal.php';
     
     $usuario = new Usuario();
     
@@ -28,7 +28,10 @@
     $diarioE = $_POST ["diario"];
     $observacaoEscola = $_POST ["observacaoEscola"];
     
-    $escola->atuEscola($codigo, $usuario->getUsuario(), $data, $adminE, $diarioE, $lteE, $wifiE, $observacaoEscola);
+        echo '<div class="col-lg-12">';
+        echo "Data: ".$data." <br/> Codigo: ".$codigo." <br/> LTE: ".$lteE."<br/> AdminE: ".$adminE." <br/>Wif:  ".$wifiE."<br/> diarioE: ".$diarioE."<br/>Obs: ".$observacaoEscola." </div>";
+     
+        //$escola->atuEscola($codigo, $usuario->getUsuario(), $data, $adminE, $diarioE, $lteE, $wifiE, $observacaoEscola);
     
     //Administrativo
     $admComputadores = $_POST ["admComputadores"];
@@ -37,7 +40,7 @@
     $admScanners = $_POST ["admScanners"];
     $observacaoAdm = $_POST ["ObservacaoAdm"];
     
-    $administrativo->atuAdm($_codigo, $usuario->getUsuario(), $data, $admComputadores, $admImpressoras, $admEstabilizadores, $admScanners, $observacaoAdm);
+    //$administrativo->atuAdm($_codigo, $usuario->getUsuario(), $data, $admComputadores, $admImpressoras, $admEstabilizadores, $admScanners, $observacaoAdm);
     
     //Laboratório
     $lteComputadores = $_POST ["lteComputadores"];
@@ -54,14 +57,20 @@
     $wifiAp = $_POST ["wifiAp"];
     $observacaoWifi = $_POST ["observacaoWifi"];
     
-    $wifi->atuWifi($_codigo, $usuario->getUsuario(), $data, $wifiAp, $wifiApRouter, $observacaoWifi);
+    //$wifi->atuWifi($_codigo, $usuario->getUsuario(), $data, $wifiAp, $wifiApRouter, $observacaoWifi);
     
     //Tablet
     $diarioTablet = $_POST ["diarioTablet"];
     $ObservacaoDiario = $_POST ["ObservacaoDiario"];
     
-    $diario->atuDiario($_codigo, $usuario->getUsuario(), $data, $diarioTablet, $ObservacaoDiario);
+    //$diario->atuDiario($_codigo, $usuario->getUsuario(), $data, $diarioTablet, $ObservacaoDiario);
     
     
-    header('location:index.php');
+   // header('location:index.php');    
+    
+    ?>
+    </body>
+</html>
+    
+    
     

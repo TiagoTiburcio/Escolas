@@ -24,41 +24,41 @@
     $diario->iniDiarioEscola($escola->getCodigo());
     
     $wifi->iniWifiEscola($escola->getCodigo());
-     
+//   onsubmit="return validalogin(); return false;"  
 ?>
         <div class="col-lg-12 text-center">            
             <h2>Atualizar Cadastro Escola</h2>
             <h2></h2>
-            <form id="cadastro" name="cadastro" class="form-horizontal" method="post" onsubmit="return validalogin(); return false;" action="gravaeditescola.php">
+            <form id="cadastro" name="cadastro" class="form-horizontal" method="post" action="gravaeditescola.php">
              <div class="form-group">
                 <div>
                     <div class="form-group" hidden="">
                       <label for="codigo">Código Escola</label>
-                      <input type="text" class="form-control" id="codigo" disabled="" name="codigo" value="<?php echo $escola->getCodigo();?>">
+                      <input type="text" class="form-control" id="codigo" readonly="" name="codigo" value="<?php echo $escola->getCodigo();?>">
                     </div>
                 </div> 
                 <div class="col-lg-2 col-lg-offset-1">
                     <div class="form-group right">
                       <label for="inep">Código INEP MEC</label>
-                      <input type="text" class="form-control" id="inep" disabled="" name="inep" value="<?php echo $escola->getCodigoMec();?>">
+                      <input type="text" class="form-control" id="inep" readonly="" name="inep" value="<?php echo $escola->getCodigoMec();?>">
                     </div>
                 </div>
                 <div class="col-lg-2">    
                     <div class="form-group">
                       <label for="dre">Diretoria</label>
-                      <input type="text" class="form-control" id="dre" disabled="" name="dre" value="<?php echo $escola->getDiretoria();?>">
+                      <input type="text" class="form-control" id="dre" readonly="" name="dre" value="<?php echo $escola->getDiretoria();?>">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="form-group">
                       <label for="nome">Nome Escola</label>
-                      <input type="text" class="form-control" id="nome" disabled="" name="nome" value="<?php echo $escola->getNome();?>">
+                      <input type="text" class="form-control" id="nome" readonly="" name="nome" value="<?php echo $escola->getNome();?>">
                     </div>
                 </div>
                 <div class="col-lg-2">    
                     <div class="form-group">
                       <label for="cidade">Cidade</label>
-                      <input type="text" class="form-control" id="cidade" disabled="" name="cidade" value="<?php echo $escola->getMunicipio();?>">
+                      <input type="text" class="form-control" id="cidade" readonly="" name="cidade" value="<?php echo $escola->getMunicipio();?>">
                     </div>
                 </div>
                 <div class="col-lg-2 col-lg-offset-1">
@@ -69,20 +69,20 @@
                     <div class="radio-inline">
                         <label><input type="radio" name="admin" <?php if($escola->getAdministrativo() == 0){echo 'checked=""';}?> value="0">Não</label>
                     </div>
-                    <div class="radio-inline disabled">
-                        <label><input type="radio" name="admin" <?php if($escola->getAdministrativo() == 2){echo 'checked=""';}?> value="2" disabled>Sem Resposta</label>
+                    <div class="radio-inline">
+                        <label><input type="radio" name="admin" readonly="" <?php if($escola->getAdministrativo() == 2){echo 'checked=""';}?> value="2" disabled>Sem Resposta</label>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <label for="lte">Possui Laboratório?</label><br/>
                     <div class="radio-inline">
-                        <label><input type="radio" name="lte" <?php if($escola->getLaboratorio() == 1){echo 'checked=""';}?> value="1">Sim</label>
+                        <label><input type="radio" name="lte" <?php if($escola->getLaboratorio() == 1){echo 'checked=""';}?>value="1">Sim</label>
                     </div>
                     <div class="radio-inline">
-                        <label><input type="radio" name="lte" <?php if($escola->getLaboratorio() == 0){echo 'checked=""';}?> value="0">Não</label>
+                        <label><input type="radio" name="lte" <?php if($escola->getLaboratorio() == 0){echo 'checked=""';}?>value="0">Não</label>
                     </div>
-                    <div class="radio-inline disabled">
-                        <label><input type="radio" name="lte" <?php if($escola->getLaboratorio() == 2){echo 'checked=""';}?> value="2" disabled>Sem Resposta</label>
+                    <div class="radio-inline">
+                        <label><input type="radio" readonly="" name="lte" <?php if($escola->getLaboratorio() == 2){echo 'checked=""';}?> value="2" disabled>Sem Resposta</label>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -93,8 +93,8 @@
                     <div class="radio-inline">
                         <label><input type="radio" name="wifi" <?php if($escola->getWifi() == 0){echo 'checked=""';}?> value="0">Não</label>
                     </div>
-                    <div class="radio-inline disabled">
-                        <label><input type="radio" name="wifi" <?php if($escola->getWifi() == 2){echo 'checked=""';}?> value="2" disabled>Sem Resposta</label>
+                    <div class="radio-inline">
+                        <label><input type="radio" readonly="" name="wifi" <?php if($escola->getWifi() == 2){echo 'checked=""';}?> value="2" disabled>Sem Resposta</label>
                     </div>
                 </div>
                 <div class="col-lg-2">
