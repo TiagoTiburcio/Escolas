@@ -41,16 +41,25 @@
                </div>
              </div>  
             </form>
+            <div class="col-xs-10 col-xs-offset-2">
+                <label> Possui Item na Escola: <span class="glyphicon glyphicon-ok-circle btn-success"></label> 
+                <label> Não Possui Item na Escola: <span class="glyphicon glyphicon-remove-circle btn-danger"></label> 
+                <label> Sem Resposta Técnico: <span class="glyphicon glyphicon-ban-circle"></label>  
+            </div>
         </div>
         <div class="col-xs-10">
             <div class="col-xs-12">
                 <table class="table table-hover table-striped table-condensed">
                     <thead>
-                      <tr>
+                      <tr class="text-center">
                         <th>Diretoria</th> 
                         <th>Município</th>
                         <th>INEP</th>
                         <th>Nome Escola</th>
+                        <th>Admin.</th>
+                        <th>LTE</th>
+                        <th>Wifi</th>
+                        <th>Diário</th>
                         <th>Manut. Escola</th>
                       </tr>
                     </thead>
@@ -60,11 +69,15 @@
                             foreach ($escolas as $table_escolas){                                
                         ?>                
                     <tr>
-                        <td><?php echo $table_escolas["diretoria"]; ?></td>
+                        <td class="text-center"><?php echo $table_escolas["diretoria"]; ?></td>
                         <td><?php echo $table_escolas["municipio"]; ?></td>
                         <td><?php echo $table_escolas["codigo_mec"]; ?></td>
                         <td><?php echo $table_escolas["nome"]; ?></td>
-                        <td><?php echo '<a type="button" class="btn btn-primary" target="_blank" href="../home/editescola.php?codigo='.$table_escolas["codigo_escola"].'"><span class="glyphicon glyphicon-edit"></span></a>';?></td>                        
+                        <td class="text-center"><?php echo $escola->imprimiSituacao($table_escolas["administrativo"]); ?></td>
+                        <td class="text-center"><?php echo $escola->imprimiSituacao($table_escolas["laboratorio"]); ?></td>
+                        <td class="text-center"><?php echo $escola->imprimiSituacao($table_escolas["wifi"]); ?></td>
+                        <td class="text-center"><?php echo $escola->imprimiSituacao($table_escolas["diario"]); ?></td>
+                        <td class="text-center"><?php echo '<a type="button" class="btn btn-primary" target="_blank" href="../home/editescola.php?codigo='.$table_escolas["codigo_escola"].'"><span class="glyphicon glyphicon-edit"></span></a>';?></td>                        
                     </tr>  
                         <?php
                                 }

@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <script src="../js/jquery.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/validacampo.js"></script>
   <link rel="stylesheet" href="../css/estilo.css">
 </head>
 <body>
