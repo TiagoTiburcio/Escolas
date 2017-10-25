@@ -33,12 +33,12 @@
     
     //Administrativo
     $admComputadores = $_POST ["admComputadores"];
-    $admImpressoras = $_POST ["admImpressoras"];
+    $admImpressoras = $_POST ["admImpressora"];
     $admEstabilizadores	= $_POST ["admEstabilizadores"];
     $admScanners = $_POST ["admScanners"];
     $observacaoAdmin = $_POST ["observacaoAdmin"];
    
-    
+    echo "asdasdsad:  ".$admImpressoras."asdasdsad:  ".$admComputadores;
     $administrativo->atuAdm($codigo, $usuario->getUsuario(), $data, $admComputadores, $admImpressoras, $admEstabilizadores, $admScanners, $observacaoAdmin);
     
     //Laboratório
@@ -63,5 +63,5 @@
     $diario->atuDiario($codigo, $usuario->getUsuario(), $data, $diarioTablet, $observacaoDiario);
     
     
-    header('location:index.php');    
+   // header('location:index.php');    
  

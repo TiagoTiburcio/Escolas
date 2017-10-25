@@ -24,12 +24,12 @@
     $diario->iniDiarioEscola($escola->getCodigo());
     
     $wifi->iniWifiEscola($escola->getCodigo());
-//   onsubmit="return validalogin(); return false;"  
+
 ?>
         <div class="col-lg-12 text-center">            
             <h2>Atualizar Cadastro Escola</h2>
             <h2></h2>
-            <form id="cadastro" name="cadastro" class="form-horizontal" method="post" action="gravaeditescola.php">
+            <form id="cadastro" name="cadastro" class="form-horizontal" method="post" onsubmit="return validaCadastro();" action="gravaeditescola.php">
              <div class="form-group">
                 <div>
                     <div class="form-group" hidden="">
@@ -123,8 +123,8 @@
                 </div>    
                 <div class="col-lg-3">
                     <div class="form-group right">
-                        <label for="admImpressoras">Qtd. Impressoras Setor Administrativo</label>
-                        <input type="text" class="form-control" id="admImpressoras" name="admImpressoras" value="<?php echo $administrativo->getQtdImpressoras();?>">
+                        <label for="admImpressora">Qtd. Impressoras Setor Administrativo</label>
+                        <input type="text" class="form-control" id="admImpressora" name="admImpressora" value="<?php echo $administrativo->getQtdImpressoras();?>">
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -155,7 +155,7 @@
                 <div class="col-lg-2">
                     <div class="form-group right">
                         <label for="lteImpressoras">Qtd. Impressoras Laboratório - LTE</label>
-                        <input type="text" class="form-control" id="admImpressoras" name="lteImpressoras" value="<?php echo $laboratorio->getQtdImpressoras();?>">
+                        <input type="text" class="form-control" id="lteImpressoras" name="lteImpressoras" value="<?php echo $laboratorio->getQtdImpressoras();?>">
                     </div>
                 </div>
                 <div class="col-lg-2">

@@ -5,58 +5,43 @@
  */
 
 // JavaScript Document
-function validaCadastro()
-            {
-                var validacpf = ValidarCPF(document.cadastro.cpf);
-                var validadata =ValidaData(document.cadastro.nascimento);
-                
-                if (document.cadastro.nome.value === "")
-                {
-                    alert("O Campo nome \u00e9 Obrigat\u00f3rio!");
-                    return false;
-                } else
-                if (document.cadastro.nascimento.value === "")
-                {
-                    alert("O Campo data nascimento \u00e9 Obrigat\u00f3rio!");
-                    return false;
-                } else
-                if (document.cadastro.cpf.value === "")
-                {
-                    alert("O Campo CPF \u00e9 Obrigat\u00f3rio!");
-                    return false;
-                } else
-                if (validacpf)
-                {
-                    alert("O Campo CPF inv\u00e1lido!");
-                    return false;
-                } else
-                if (validadata)
-                {
-                    alert("O Campo data inv\u00e1lido!");
-                    return false;
-                } else
-                if (document.cadastro.termo.checked === false)
-                {
-                    alert("Para prosseguir \u00e9 nescess\u00e1rio ler e concordar com o termo!");
-                    return false;
-                } else
-                if (document.cadastro.senha.value === "")
-                {
-                    alert("Digite uma senha!");
-                    return false;
-                }else
-                if (document.cadastro.senha.value.length <= 5)
-                {
-                    alert("Senha deve conter no m\u00ednimo 6 Caracteres!");
-                    return false;
-                } else
-                if (document.cadastro.senha2.value !== document.cadastro.senha.value)
-                {
-                    alert("Senha e confirma\u00e7\u00e3o de senha diferentes!");
-                    return false;
-                } else
-                    return true;
-            }
+function validaCadastro(){    
+    if (document.cadastro.admin.value === "2" ){        
+        alert("ERRO Cadastro - Campo Escola possui Setor Administrativo sem resposta!!!");
+        return false;
+    } else if (document.cadastro.lte.value === "2" ){
+        alert("ERRO Cadastro - Campo Escola possui Laboratório sem resposta!!!");
+        return false;
+    } else if (document.cadastro.wifi.value === "2" ){
+        alert("ERRO Cadastro - Campo Escola possui Redes Wifi sem resposta!!!");
+        return false;
+    } else if (document.cadastro.diario.value === "2" ){        
+        alert("ERRO Cadastro - Campo Escola possui Diário Eletrônico sem resposta!!!");        
+        return false;
+    } else if (document.cadastro.admin.value === "0"){
+        document.cadastro.admComputadores.value = "";
+        document.cadastro.admEstabilizadores.value = "";
+        document.cadastro.observacaoAdmin.value = "";
+        document.cadastro.admScanners.value = "";
+        document.cadastro.admImpressora.value = "";        
+    } else if (document.cadastro.lte.value === "0"){
+        document.cadastro.lteComputadores.value = "";
+        document.cadastro.lteImpressoras.value = "";
+        document.cadastro.lteEstabilizadores.value = "";
+        document.cadastro.lteCapacidade.value = "";
+        document.cadastro.ultPregao.value = "";
+        document.cadastro.observacaoLte.value = "";        
+    } else if (document.cadastro.wifi.value === "0"){
+        document.cadastro.wifiApRouter.value = "";
+        document.cadastro.wifiAp.value = "";
+        document.cadastro.observacaoWifi.value = "";        
+    }  else if (document.cadastro.diario.value === "0"){
+        document.cadastro.diarioTablet.value = "";
+        document.cadastro.observacaoDiario.value = "";        
+    } else {
+        return true;
+    }
+}
 //valida o CPF digitado
 function ValidarCPF(Objcpf) {
     var cpf = Objcpf.value;
