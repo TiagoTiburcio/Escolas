@@ -14,7 +14,7 @@
     $diario = new Diario();
     
     $wifi = new Wifi();
-    
+    $data = date_default_timezone_set("America/Bahia");
     $data = date('Y-m-d H:i:s');
     //Escola
     $codigo = $_POST ["codigo"];
@@ -27,20 +27,19 @@
     $wifiE = $_POST ["wifi"];
     $diarioE = $_POST ["diario"];
     $observacaoEscola = $_POST ["observacaoEscola"];
-    
-        echo '<div class="col-lg-12">';
-        echo "Data: ".$data." <br/> Codigo: ".$codigo." <br/> LTE: ".$lteE."<br/> AdminE: ".$adminE." <br/>Wif:  ".$wifiE."<br/> diarioE: ".$diarioE."<br/>Obs: ".$observacaoEscola." </div>";
+   
      
-        //$escola->atuEscola($codigo, $usuario->getUsuario(), $data, $adminE, $diarioE, $lteE, $wifiE, $observacaoEscola);
+    $escola->atuEscola($codigo, $usuario->getUsuario(), $data, $adminE, $diarioE, $lteE, $wifiE, $observacaoEscola);
     
     //Administrativo
     $admComputadores = $_POST ["admComputadores"];
     $admImpressoras = $_POST ["admImpressoras"];
     $admEstabilizadores	= $_POST ["admEstabilizadores"];
     $admScanners = $_POST ["admScanners"];
-    $observacaoAdm = $_POST ["ObservacaoAdm"];
+    $observacaoAdmin = $_POST ["observacaoAdmin"];
+   
     
-    //$administrativo->atuAdm($_codigo, $usuario->getUsuario(), $data, $admComputadores, $admImpressoras, $admEstabilizadores, $admScanners, $observacaoAdm);
+    $administrativo->atuAdm($codigo, $usuario->getUsuario(), $data, $admComputadores, $admImpressoras, $admEstabilizadores, $admScanners, $observacaoAdmin);
     
     //Laboratório
     $lteComputadores = $_POST ["lteComputadores"];
@@ -48,29 +47,21 @@
     $lteEstabilizadores	= $_POST ["lteEstabilizadores"];
     $lteCapacidade = $_POST ["lteCapacidade"];
     $ultPregao	= $_POST ["ultPregao"];
-    $observcaoLte = $_POST ["observcaoLte"];
+    $observacaoLte = $_POST ["observacaoLte"];
     
-    $laboratorio->atuLab($codigo, $usuario->getUsuario(), $data, $lteComputadores, $lteImpressoras, $lteEstabilizadores, $lteCapacidade, $ultPregao, $observcaoLte);
+
+    $laboratorio->atuLab($codigo, $usuario->getUsuario(), $data, $lteComputadores, $lteImpressoras, $lteEstabilizadores, $lteCapacidade, $ultPregao, $observacaoLte);
     
     //Wifi 
     $wifiApRouter = $_POST ["wifiApRouter"];
     $wifiAp = $_POST ["wifiAp"];
-    $observacaoWifi = $_POST ["observacaoWifi"];
-    
-    //$wifi->atuWifi($_codigo, $usuario->getUsuario(), $data, $wifiAp, $wifiApRouter, $observacaoWifi);
-    
+    $observacaoWifi = $_POST ["observacaoWifi"];    
     //Tablet
     $diarioTablet = $_POST ["diarioTablet"];
-    $ObservacaoDiario = $_POST ["ObservacaoDiario"];
+    $observacaoDiario = $_POST ["observacaoDiario"];
     
-    //$diario->atuDiario($_codigo, $usuario->getUsuario(), $data, $diarioTablet, $ObservacaoDiario);
-    
-    
-   // header('location:index.php');    
-    
-    ?>
-    </body>
-</html>
+    $diario->atuDiario($codigo, $usuario->getUsuario(), $data, $diarioTablet, $observacaoDiario);
     
     
-    
+    header('location:index.php');    
+ 

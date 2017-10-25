@@ -312,8 +312,10 @@ class Escolas extends Database {
             $this->setDiario($table_iniEscola["diario"]);
             $this->setWifi($table_iniEscola["wifi"]);
             $this->setObservacao($table_iniEscola["observacao"]);
-        } 
+        }
+        return mysqli_num_rows($resultado_iniEscola);
     }
+      
 
     // retorno = 1 - usuario cadastrado 0 - usuario não cadastrado
     function atuEscola($_codigo,$_usuario, $_data, $_adm, $_diario, $_lte, $_wifi, $_obs){
@@ -426,7 +428,7 @@ class Administrativo extends Database {
    
     // retorno = 1 - usuario cadastrado 0 - usuario não cadastrado
     function iniAdmEscola($_codigoEscola){
-        $consulta_iniAdmEscola = "SELECT * FROM escolas_administrativo where codigo_escola = '$_codigoEscola';";                                
+        $consulta_iniAdmEscola = "SELECT * FROM escolas_administrativo where codigo_escola_administrativo = '$_codigoEscola';";                                
         $resultado_iniAdmEscola = mysqli_query($this->connect(), $consulta_iniAdmEscola);        
         foreach ($resultado_iniAdmEscola as $table_iniAdmEscola){            
             $this->setCodigoEscola($table_iniAdmEscola["codigo_escola_administrativo"]);
@@ -442,7 +444,12 @@ class Administrativo extends Database {
     
     // retorno = 1 - usuario cadastrado 0 - usuario não cadastrado
     function atuAdm($_codigoEscola,$_usuario, $_data, $_qtdComp, $_qtdImp, $_qtdEstab, $_qtdScan, $_obs){        
-        if($this->iniAdmEscola($_codigoEscola) >= '1'){
+        if($this->iniAdmEscola($_codigoEscola) != '1'){            
+            $consulta_atuEscola = "INSERT INTO `escolas_administrativo` (`codigo_escola_administrativo`, `codigo`,`qtd_computadores`,`qtd_impressoras`,`qtd_estabilizadores`,`qtd_scanner`,`observacao`,`usuario_ult_edi`, `data_ult_edi`)"
+                                . " VALUES('".$_codigoEscola."', '1', '".$_qtdComp."', '".$_qtdImp."', '".$_qtdEstab."', '".$_qtdScan."', '".$_obs."', '$_usuario', '$_data'); ";                                
+            $resultado_atuEscola = mysqli_query($this->connect(), $consulta_atuEscola);
+            return mysqli_num_rows($resultado_atuEscola);
+        } else {
             $consulta_atuEscola = " UPDATE `escolas_administrativo` SET "
                                 . " `usuario_ult_edi` = '$_usuario', "
                                 . " `data_ult_edi` = '$_data', "
@@ -451,12 +458,7 @@ class Administrativo extends Database {
                                 . " `qtd_estabilizadores` = '$_qtdEstab' , "
                                 . " `qtd_scanner` = '$_qtdScan' ,"
                                 . " `observacao` = '$_obs'"
-                                . " WHERE `codigo_escola_administrativo` = '$_codigoEscola' AND `codigo` = '".$this->getCodigo()."';";                                
-            $resultado_atuEscola = mysqli_query($this->connect(), $consulta_atuEscola);
-            return mysqli_num_rows($resultado_atuEscola);
-        } else {
-            $consulta_atuEscola = "INSERT INTO `escolas_administrativo` (`codigo_escola_administrativo`, `codigo`,`qtd_computadores`,`qtd_impressoras`,`qtd_estabilizadores`,`qtd_scanner`,`observacao`,`usuario_ult_edi`, `data_ult_edi`)"
-                                . " VALUES('".$this->getCodigoEscola()."', '1', '".$_qtdComp."', '".$_qtdImp."', '".$_qtdEstab."', '".$_qtdScan."', '".$_obs."', '$_usuario', '$_data'); ";                                
+                                . " WHERE `codigo_escola_administrativo` = '$_codigoEscola' AND `codigo` = '1';";                                
             $resultado_atuEscola = mysqli_query($this->connect(), $consulta_atuEscola);
             return mysqli_num_rows($resultado_atuEscola);
         }
@@ -548,7 +550,7 @@ class Laboratorio extends Database {
         return $this->capMaxComputadores;
     }
     
-    
+       
     // retorna lista com todos os usuarios cadastrados
     function listaLabEcola(){        
         $consulta_listaLabEcola = "SELECT * FROM escolas_laboratorio where codigo_escola_laboratorio = '".$this->getCodigoEscola()."' ;";                                
@@ -558,7 +560,7 @@ class Laboratorio extends Database {
    
     // retorno = 1 - usuario cadastrado 0 - usuario não cadastrado
     function iniLabEscola($_codigoEscola){
-        $consulta_iniLabEscola = "SELECT * FROM escolas_laboratorio where codigo_escola_laboratorio = '$_codigoEscola';";                                
+        $consulta_iniLabEscola = "SELECT count(codigo) as cont , e.* FROM escolas_laboratorio as e where codigo_escola_laboratorio = '$_codigoEscola';";                                
         $resultado_iniLabEscola = mysqli_query($this->connect(), $consulta_iniLabEscola);        
         foreach ($resultado_iniLabEscola as $table_iniLabEscola){            
             $this->setCodigoEscola($table_iniLabEscola["codigo_escola_laboratorio"]);
@@ -568,32 +570,33 @@ class Laboratorio extends Database {
             $this->setQtdEstabilizadores($table_iniLabEscola["qtd_estabilizadores"]);
             $this->setCapMaxComputadores($table_iniLabEscola["cap_max_computadores"]);
             $this->setUltimoPregao($table_iniLabEscola["ultimo_pregao"]);
-            $this->setObservacao($table_iniLabEscola["observacao"]);            
+            $this->setObservacao($table_iniLabEscola["observacao"]);
+            $result = $table_iniLabEscola["cont"];            
         }
-        return mysqli_num_rows($resultado_iniLabEscola);
+        return $result;
     }
     
     // retorno = 1 - usuario cadastrado 0 - usuario não cadastrado
     function atuLab($_codigoEscola,$_usuario, $_data, $_qtdComp, $_qtdImp, $_qtdEstab, $_qtdMaxComp, $_ultPregao, $_obs){        
-        if($this->iniLabEscola($_codigoEscola) >= '1'){
-            $consulta_atuLab = " UPDATE `escolas_laboratorio` SET "
-                                . " `usuario_ult_edi` = '$_usuario', "
-                                . " `data_ult_edi` = '$_data', "
-                                . " `qtd_computadores` = '$_qtdComp', "
-                                . " `qtd_impressoras` = '$_qtdImp', "
-                                . " `qtd_estabilizadores` = '$_qtdEstab' , "
-                                . " `ultimo_pregao` = = '$_ultPregao', "
-                                . " `cap_max_computadores` = '$_qtdMaxComp'"
-                                . " `observacao` = '$_obs'"
-                                . " WHERE `codigo` = '".$this->getCodigo()."' AND `codigo_escola_laboratorio` = $_codigoEscola;";                                
-            $resultado_atuLab = mysqli_query($this->connect(), $consulta_atuLab);
-            return mysqli_num_rows($resultado_atuLab);
-        } else {
+        if($this->iniLabEscola($_codigoEscola) == '0'){
+            
             $consulta_atuLab = "INSERT INTO `escolas_laboratorio` (`codigo`, `codigo_escola_laboratorio`, `ultimo_pregao`,`cap_max_computadores`,`qtd_computadores`,`qtd_impressoras`,`qtd_estabilizadores`,`usuario_ult_edi`,`data_ult_edi`,`observacao`)"
-                                . " VALUES('1', ".$_codigoEscola."', '$_ultPregao', '$_qtdMaxComp', '$_qtdComp', '$_qtdImp', '$_qtdEstab', '$_usuario', '$_data', '$_obs'); ";                                
-            $resultado_atuLab = mysqli_query($this->connect(), $consulta_atuLab);
-            return mysqli_num_rows($resultado_atuLab);
+                                . " VALUES('1', '$_codigoEscola', '$_ultPregao', '$_qtdMaxComp', '$_qtdComp', '$_qtdImp', '$_qtdEstab', '$_usuario', '$_data', '$_obs'); ";                                
+            $resultado_atuLab = mysqli_query($this->connect(), $consulta_atuLab);            
+        } else {            
+            $consulta_atuLab = " UPDATE `escolas_laboratorio` SET "
+                             . " `usuario_ult_edi` = '$_usuario', "
+                             . " `data_ult_edi` = '$_data', "
+                             . " `qtd_computadores` = '$_qtdComp', "
+                             . " `qtd_impressoras` = '$_qtdImp', "
+                             . " `qtd_estabilizadores` = '$_qtdEstab' , "
+                             . " `ultimo_pregao` = '$_ultPregao', "
+                             . " `cap_max_computadores` = '$_qtdMaxComp',"
+                             . " `observacao` = '$_obs' "
+                             . " WHERE `codigo` = '1' AND `codigo_escola_laboratorio` = '$_codigoEscola';";                                
+            $resultado_atuLab = mysqli_query($this->connect(), $consulta_atuLab);            
         }
+        return mysqli_num_rows($resultado_atuLab);            
     }
     
         
@@ -667,21 +670,20 @@ class Diario extends Database {
     
     // retorno = 1 - usuario cadastrado 0 - usuario não cadastrado
     function atuDiario($_codigoEscola,$_usuario, $_data, $_qtdTablet , $_obs){        
-        if($this->iniDiarioEscola($_codigoEscola) >= '1'){
+        if($this->iniDiarioEscola($_codigoEscola) != '1'){
+            $consulta_atuDiario = "INSERT INTO `escolas_diario` (`codigo_escola_diario`,`codigo`,`qtd_tablet`,`usuario_ult_edi`,`data_ult_edi`,`observacao`)"
+                                . " VALUES('".$_codigoEscola."', '1', '$_qtdTablet', '$_usuario', '$_data', '$_obs'); ";                                
+            $resultado_atuDiario = mysqli_query($this->connect(), $consulta_atuDiario);            
+        } else {
             $consulta_atuDiario = " UPDATE `escolas_diario` SET "
                                 . " `usuario_ult_edi` = '$_usuario', "
                                 . " `data_ult_edi` = '$_data', "
                                 . " `qtd_tablet` = '$_qtdTablet', "                                
                                 . " `observacao` = '$_obs'"
-                                . " WHERE `codigo` = '".$this->getCodigo()."' AND `codigo_escola_diario` = $_codigoEscola;";                                
-            $resultado_atuDiario = mysqli_query($this->connect(), $consulta_atuDiario);
-            return mysqli_num_rows($resultado_atuDiario);
-        } else {
-            $consulta_atuDiario = "INSERT INTO `escolas_diario` (`codigo_escola_diario`,`codigo`,`qtd_tablet`,`usuario_ult_edi`,`data_ult_edi`,`observacao`)"
-                                . " VALUES(".$_codigoEscola."', '1', '$_qtdTablet', '$_usuario', '$_data', '$_obs'); ";                                
-            $resultado_atuDiario = mysqli_query($this->connect(), $consulta_atuDiario);
-            return mysqli_num_rows($resultado_atuDiario);
+                                . " WHERE `codigo` = '1' AND `codigo_escola_diario` = '$_codigoEscola';";                                
+            $resultado_atuDiario = mysqli_query($this->connect(), $consulta_atuDiario);            
         }
+        return mysqli_num_rows($resultado_atuDiario);
     }
     
     function __destruct() {}
@@ -754,27 +756,27 @@ class Wifi extends Database {
             $this->setQtdAp($table_iniWifiEscola["qtd_ap"]);
             $this->setQtdApRouter($table_iniWifiEscola["qtd_ap_router"]);                           
             $this->setObservacao($table_iniWifiEscola["observacao"]);            
-        } 
+        }
+        return mysqli_num_rows($resultado_iniWifiEscola);
     }    
     
     // retorno = 1 - usuario cadastrado 0 - usuario não cadastrado
     function atuWifi($_codigoEscola,$_usuario, $_data, $_qtdAp, $_qtdApRouter , $_obs){        
-        if($this->iniWifiEscola($_codigoEscola) >= '1'){
+        if($this->iniWifiEscola($_codigoEscola) != '1'){
+            $consulta_atuWifi = "INSERT INTO `escolas_wifi` (`codigo_escola_wifi`,`codigo`,`qtd_ap`,`qtd_ap_router`,`usuario_ult_edi`,`data_ult_edi`,`observacao`)"
+                                . " VALUES('$_codigoEscola', '1', '$_qtdAp', '$_qtdApRouter', '$_usuario', '$_data', '$_obs'); ";                                
+            $resultado_atuWifi = mysqli_query($this->connect(), $consulta_atuWifi);            
+        } else {
             $consulta_atuWifi = " UPDATE `escolas_wifi` SET "
                                 . " `usuario_ult_edi` = '$_usuario', "
                                 . " `data_ult_edi` = '$_data', "
                                 . " `qtd_ap` = '$_qtdAp', "                                
                                 . " `qtd_ap_router` = '$_qtdApRouter', "                                
-                                . " `observacao` = '$_obs'"
-                                . " WHERE `codigo` = '".$this->getCodigo()."' AND `codigo_escola_wifi` = $_codigoEscola;";                                
-            $resultado_atuWifi = mysqli_query($this->connect(), $consulta_atuWifi);
-            return mysqli_num_rows($resultado_atuWifi);
-        } else {
-            $consulta_atuWifi = "INSERT INTO `escolas_wifi` (`codigo_escola_wifi`,`codigo`,`qtd_ap`,`qtd_ap_router`,`usuario_ult_edi`,`data_ult_edi`,`observacao`)"
-                                . " VALUES(".$_codigoEscola."', '1', '$_qtdAp', '$_qtdApRouter', '$_usuario', '$_data', '$_obs'); ";                                
-            $resultado_atuWifi = mysqli_query($this->connect(), $consulta_atuWifi);
-            return mysqli_num_rows($resultado_atuWifi);
+                                . " `observacao` = '$_obs' "
+                                . " WHERE `codigo` = '1' AND `codigo_escola_wifi` = '$_codigoEscola';";                                
+            $resultado_atuWifi = mysqli_query($this->connect(), $consulta_atuWifi);            
         }
+        return $consulta_atuWifi;
     }
     
     function __destruct() {}

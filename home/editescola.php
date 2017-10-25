@@ -141,8 +141,8 @@
                 </div>
                 <div class="col-lg-10 col-lg-offset-1">
                     <div class="form-group">
-                        <label for="observacaoAdm">Observações Sobre Setor Administrativo:</label>
-                        <textarea class="form-control" rows="1" id="observacaoAdm" name="observacaoAdm"><?php echo $administrativo->getObservacao();?></textarea>
+                        <label for="observacaoAdmin">Observações Sobre Setor Administrativo:</label>
+                        <textarea class="form-control" rows="1" id="observacaoAdmin" name="observacaoAdmin"><?php echo $administrativo->getObservacao();?></textarea>
                     </div>  
                 </div>
                  
@@ -173,13 +173,13 @@
                 <div class="col-lg-2">
                     <div class="form-group right">
                         <label for="ultPregao">Último Pregão Recebido - LTE</label>
-                        <input type="text" class="form-control" id="ultPregao" name="ultPregao" value="<?php echo $laboratorio->getQtdEstabilizadores();?>">
+                        <input type="text" class="form-control" id="ultPregao" name="ultPregao" value="<?php echo $laboratorio->getUltimoPregao();?>">
                     </div>
                 </div> 
                 <div class="col-lg-10 col-lg-offset-1">
                     <div class="form-group">
                         <label for="observacaoLte">Observações Sobre Laboratório - LTE:</label>
-                        <textarea class="form-control" rows="1" id="observacaoAdm" name="observacaoAdm"><?php echo $administrativo->getObservacao();?></textarea>
+                        <textarea class="form-control" rows="1" id="observacaoLte" name="observacaoLte"><?php echo $laboratorio->getObservacao();?></textarea>
                     </div>  
                 </div>
                 
@@ -192,7 +192,7 @@
                 <div class="col-lg-2">
                     <div class="form-group right">
                         <label for="wifiAp">Qtd. AP em Rede Wifi</label>
-                        <input type="text" class="form-control" id="wifiAp" name="WifiAp" value="<?php echo $wifi->getQtdAp();?>">
+                        <input type="text" class="form-control" id="wifiAp" name="wifiAp" value="<?php echo $wifi->getQtdAp();?>">
                     </div>
                 </div> 
                 <div class="col-lg-10 col-lg-offset-1">
@@ -216,7 +216,7 @@
                 </div> 
                 
                  <div class="col-lg-12">    
-                      <a type="button" class="btn btn-danger"  href="">Cancelar <span class="glyphicon glyphicon-erase"></span></a>                 
+                      <a type="button" class="btn btn-danger"  href="">Reiniciar Tela <span class="glyphicon glyphicon-erase"></span></a>                 
                       <button type="submit" class="btn btn-success">Salvar <span class="glyphicon glyphicon-floppy-disk"></span></button>                  
                 </div>
              </div>  
