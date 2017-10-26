@@ -6,6 +6,7 @@
   <title>Sistema Cadastro Escolas CODIN</title>  
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/qunit-1.11.0.css" type="text/css" media="all">
   <script src="../js/jquery.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
   <script src="../js/validacampo.js"></script>

@@ -86,12 +86,6 @@
                 </table>
             </div>
            </div>
-        </div>
-    <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
-    <script type="text/javascript" src="js/qunit-1.11.0.js"></script>
-    <script type="text/javascript" src="js/sinon-1.10.3.js"></script>
-    <script type="text/javascript" src="js/sinon-qunit-1.0.0.js"></script>
-    <script type="text/javascript" src="js/jquery.mask.js"></script>
-    <script type="text/javascript" src="js/jquery.mask.test.js"></script>
+        </div>   
 <?php
 include ("../class/footer.php");

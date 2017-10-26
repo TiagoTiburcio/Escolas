@@ -38,7 +38,7 @@
         $admImpressoras = "0";
         $admEstabilizadores = "0";
         $admScanners = "0";
-        $observacaoAdmin = " Marcou não Possui Setor Administrativo ";
+        $observacaoAdmin = "";
     } else if ($adminE == "1") {
         $admComputadores = $_POST ["admComputadores"];
         $admImpressoras = $_POST ["admImpressora"];
@@ -56,7 +56,7 @@
         $lteEstabilizadores = "0";
         $lteCapacidade = "0";
         $ultPregao = "0";
-        $observacaoLte = " Marcou não Possui LTE ";
+        $observacaoLte = "";
     } else if ($lteE == "1") {
         $lteComputadores = $_POST ["lteComputadores"];
         $lteImpressoras = $_POST ["lteImpressoras"];
@@ -73,7 +73,7 @@
     if ($wifiE == "0") {
         $wifiApRouter = "0";
         $wifiAp = "0";
-        $observacaoWifi = " Marcou não Possui Redes Wifi ";
+        $observacaoWifi = "";
     } else if ($wifiE = "1") {
         $wifiApRouter = $_POST ["wifiApRouter"];
         $wifiAp = $_POST ["wifiAp"];
@@ -85,7 +85,7 @@
     //Tablet
     if ($diarioE == "0") {
         $diarioTablet = "0";
-        $observacaoDiario = " Marcou não Possui Diario Eletrônico ";
+        $observacaoDiario = "";
     } else if ($diarioE == "1") {
         $diarioTablet = $_POST ["diarioTablet"];
         $observacaoDiario = $_POST ["observacaoDiario"];
