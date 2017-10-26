@@ -31,37 +31,63 @@
      
     $escola->atuEscola($codigo, $usuario->getUsuario(), $data, $adminE, $diarioE, $lteE, $wifiE, $observacaoEscola);
     
-    //Administrativo
-    $admComputadores = $_POST ["admComputadores"];
-    $admImpressoras = $_POST ["admImpressora"];
-    $admEstabilizadores	= $_POST ["admEstabilizadores"];
-    $admScanners = $_POST ["admScanners"];
+    //Administrativo    
     $observacaoAdmin = $_POST ["observacaoAdmin"];
-   
-    echo "asdasdsad:  ".$admImpressoras."asdasdsad:  ".$admComputadores;
+    if ($adminE == "0"){
+        $admComputadores = "0";
+        $admImpressoras = "0";
+        $admEstabilizadores = "0";
+        $admScanners = "0";
+    } else if ($adminE == "1") {
+        $admComputadores = $_POST ["admComputadores"];
+        $admImpressoras = $_POST ["admImpressora"];
+        $admEstabilizadores	= $_POST ["admEstabilizadores"];
+        $admScanners = $_POST ["admScanners"];
+    }    
+    
     $administrativo->atuAdm($codigo, $usuario->getUsuario(), $data, $admComputadores, $admImpressoras, $admEstabilizadores, $admScanners, $observacaoAdmin);
     
-    //Laboratório
-    $lteComputadores = $_POST ["lteComputadores"];
-    $lteImpressoras = $_POST ["lteImpressoras"];
-    $lteEstabilizadores	= $_POST ["lteEstabilizadores"];
-    $lteCapacidade = $_POST ["lteCapacidade"];
-    $ultPregao	= $_POST ["ultPregao"];
+    //Laboratório    
     $observacaoLte = $_POST ["observacaoLte"];
     
+    if ($lteE == "0") {
+        $lteComputadores = "0";
+        $lteImpressoras = "0";
+        $lteEstabilizadores = "0";
+        $lteCapacidade = "0";
+        $ultPregao = "0";
+    } else if ($lteE == "1") {
+        $lteComputadores = $_POST ["lteComputadores"];
+        $lteImpressoras = $_POST ["lteImpressoras"];
+        $lteEstabilizadores = $_POST ["lteEstabilizadores"];
+        $lteCapacidade = $_POST ["lteCapacidade"];
+        $ultPregao = $_POST ["ultPregao"];
+    }
 
     $laboratorio->atuLab($codigo, $usuario->getUsuario(), $data, $lteComputadores, $lteImpressoras, $lteEstabilizadores, $lteCapacidade, $ultPregao, $observacaoLte);
     
     //Wifi 
-    $wifiApRouter = $_POST ["wifiApRouter"];
-    $wifiAp = $_POST ["wifiAp"];
     $observacaoWifi = $_POST ["observacaoWifi"];    
+    if ($wifiE == "0") {
+        $wifiApRouter = "0";
+        $wifiAp = "0";
+    } else if ($wifiE = "1") {
+        $wifiApRouter = $_POST ["wifiApRouter"];
+        $wifiAp = $_POST ["wifiAp"];
+    }
+    
     //Tablet
     $diarioTablet = $_POST ["diarioTablet"];
     $observacaoDiario = $_POST ["observacaoDiario"];
     
+    if ($diarioE == "0") {
+        $diarioTablet = "0";
+    } else if ($diarioE == "1") {
+        $diarioTablet = $_POST ["diarioTablet"];
+    }
+    
     $diario->atuDiario($codigo, $usuario->getUsuario(), $data, $diarioTablet, $observacaoDiario);
     
     
-   // header('location:index.php');    
+   header('location:index.php');    
  

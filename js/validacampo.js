@@ -17,31 +17,13 @@ function validaCadastro(){
         return false;
     } else if (document.cadastro.diario.value === "2" ){        
         alert("ERRO Cadastro - Campo Escola possui Diário Eletrônico sem resposta!!!");        
-        return false;
-    } else if (document.cadastro.admin.value === "0"){
-        document.cadastro.admComputadores.value = "";
-        document.cadastro.admEstabilizadores.value = "";
-        document.cadastro.observacaoAdmin.value = "";
-        document.cadastro.admScanners.value = "";
-        document.cadastro.admImpressora.value = "";        
-    } else if (document.cadastro.lte.value === "0"){
-        document.cadastro.lteComputadores.value = "";
-        document.cadastro.lteImpressoras.value = "";
-        document.cadastro.lteEstabilizadores.value = "";
-        document.cadastro.lteCapacidade.value = "";
-        document.cadastro.ultPregao.value = "";
-        document.cadastro.observacaoLte.value = "";        
-    } else if (document.cadastro.wifi.value === "0"){
-        document.cadastro.wifiApRouter.value = "";
-        document.cadastro.wifiAp.value = "";
-        document.cadastro.observacaoWifi.value = "";        
-    }  else if (document.cadastro.diario.value === "0"){
-        document.cadastro.diarioTablet.value = "";
-        document.cadastro.observacaoDiario.value = "";        
+        return false;         
     } else {
         return true;
     }
 }
+
+
 //valida o CPF digitado
 function ValidarCPF(Objcpf) {
     var cpf = Objcpf.value;
