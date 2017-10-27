@@ -2,6 +2,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ *  @author Tiago Tiburcio
  */
 
 // JavaScript Document
@@ -91,6 +92,46 @@
             mostraDiario();
         }
     }
+    
+    function validaSenha(){
+        if(document.renoveSenha.pass.value === "") {
+                alert("Digite uma senha!");
+                return false;
+        } else if(document.renoveSenha.repass.value === "") {
+                alert("Digite a Repetição de Senha!");
+                return false;
+        }else if(document.renoveSenha.pass.value === "12345678" 
+                || document.renoveSenha.pass.value === "123456789"
+                || document.renoveSenha.pass.value === "1234567890"
+                || document.renoveSenha.pass.value === "87654321"
+                || document.renoveSenha.pass.value === "abcd1234"
+                || document.renoveSenha.pass.value === "00000000" 
+                || document.renoveSenha.pass.value === "11111111" 
+                || document.renoveSenha.pass.value === "22222222" 
+                || document.renoveSenha.pass.value === "33333333" 
+                || document.renoveSenha.pass.value === "44444444" 
+                || document.renoveSenha.pass.value === "55555555" 
+                || document.renoveSenha.pass.value === "66666666" 
+                || document.renoveSenha.pass.value === "77777777" 
+                || document.renoveSenha.pass.value === "88888888" 
+                || document.renoveSenha.pass.value === "99999999") {
+                alert("Senha Muito Fraca Altere!");
+                return false;
+        } else                   
+        if (document.renoveSenha.pass.value.length <= 7) {
+                alert("Senha n\u00e3o podem ser menores que 8 digitos!");
+                return false;
+        } else 
+        if (document.renoveSenha.pass.value !== document.renoveSenha.repass.value) {
+                alert("Senha e Repetção de Senha  s\u00e3o diferentes!");
+                return false;
+        } else {
+            alert(document.renoveSenha.pass.value + "  adasdasd  " + document.renoveSenha.repass.value);
+            return false;
+        }
+    }    
+    
+    
 //valida o CPF digitado
 function ValidarCPF(Objcpf) {
     var cpf = Objcpf.value;
