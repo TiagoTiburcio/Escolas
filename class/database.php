@@ -13,9 +13,9 @@
  */
 abstract class Database {
            
-    private static $host     = "10.24.0.59";   
-    private static $user     = "root";
-    private static $password = "seedqawsed";
+    private static $host     = "172.25.76.85";   
+    private static $user     = "codin";
+    private static $password = "74123698codin";
     private static $db       = "escolas";
      
     /*Metodos que trazem o conteudo da variavel desejada
