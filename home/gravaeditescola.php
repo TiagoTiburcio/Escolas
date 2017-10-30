@@ -67,7 +67,7 @@
         $observacaoLte = $_POST ["observacaoLte"];
         $dataUltRevis = implode('-', array_reverse(explode('/', $_POST ["ultRevisao"])));
     }
-    echo $codigo.$usuario->getUsuario().$data.$lteComputadores.$lteImpressoras.$lteEstabilizadores.$lteCapacidade.$ultPregao."<br/>asdasd: ".$dataUltRevis."<br/>asdasd: ".$observacaoLte;
+   
     $laboratorio->atuLab($codigo, $usuario->getUsuario(), $data, $lteComputadores, $lteImpressoras, $lteEstabilizadores, $lteCapacidade, $ultPregao, $dataUltRevis, $observacaoLte );
     
     //Wifi 
@@ -96,5 +96,5 @@
     $diario->atuDiario($codigo, $usuario->getUsuario(), $data, $diarioTablet, $observacaoDiario);
     
     
-   //header('location:index.php');    
+   header('location:index.php');    
  
