@@ -25,8 +25,6 @@
     
     $wifi->iniWifiEscola($escola->getCodigo());
     
-    echo "asdasdadadada: ".$laboratorio->getDataRevisao();
-
 ?>
 <div class="col-lg-12 text-center">            
             <h2>Atualizar Cadastro Escola </h2>
