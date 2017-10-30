@@ -44,6 +44,7 @@
         document.getElementById("blocoLteMax").style.display = "block";
         document.getElementById("blocoLtePreg").style.display = "block";
         document.getElementById("blocoLteObs").style.display = "block";
+        document.getElementById("blocoLteDataRev").style.display = "block";
     }
     function escondeLte(){
         document.getElementById("blocoLteComp").style.display = "none";
@@ -52,6 +53,7 @@
         document.getElementById("blocoLteMax").style.display = "none";
         document.getElementById("blocoLtePreg").style.display = "none";
         document.getElementById("blocoLteObs").style.display = "none";
+        document.getElementById("blocoLteDataRev").style.display = "none";
     }
     function mostraWifi(){
         document.getElementById("blocoWifiApRouter").style.display = "block";
@@ -125,9 +127,8 @@
         if (document.renoveSenha.pass.value !== document.renoveSenha.repass.value) {
                 alert("Senha e Repetção de Senha  s\u00e3o diferentes!");
                 return false;
-        } else {
-            alert(document.renoveSenha.pass.value + "  adasdasd  " + document.renoveSenha.repass.value);
-            return false;
+        } else {           
+            return true;
         }
     }    
     

@@ -201,9 +201,9 @@ class Escolas extends Database {
     private $diario;
     
     private $observacao;
-    
+   
     function __construct(){ }
-
+    
     function setCodigo($_codigo){
         $this->codigo = $_codigo;
     }
@@ -283,7 +283,7 @@ class Escolas extends Database {
     function getObservacao(){
         return $this->observacao;
     }
-       
+        
     // retorna lista com todos os usuarios cadastrados
     function listaEcolas(){        
         $consulta_usuario3 = "SELECT * FROM escolas_cadastro;";                                
@@ -484,6 +484,8 @@ class Laboratorio extends Database {
     
     private $ultimoPregao;
     
+    private $dataRevisao;
+        
     function __construct(){ }
 
     function setCodigo($_codigo){
@@ -550,6 +552,13 @@ class Laboratorio extends Database {
         return $this->capMaxComputadores;
     }
     
+    function setDataRevisao($_dataRevisao){
+        $this->dataRevisao = $_dataRevisao;
+    }
+
+    function getDataRevisao(){
+        return $this->dataRevisao;
+    }
        
     // retorna lista com todos os usuarios cadastrados
     function listaLabEcola(){        
@@ -571,17 +580,18 @@ class Laboratorio extends Database {
             $this->setCapMaxComputadores($table_iniLabEscola["cap_max_computadores"]);
             $this->setUltimoPregao($table_iniLabEscola["ultimo_pregao"]);
             $this->setObservacao($table_iniLabEscola["observacao"]);
+            $this->setDataRevisao($table_iniLabEscola["data_revisao"]);
             $result = $table_iniLabEscola["cont"];            
         }
         return $result;
     }
     
     // retorno = 1 - usuario cadastrado 0 - usuario não cadastrado
-    function atuLab($_codigoEscola,$_usuario, $_data, $_qtdComp, $_qtdImp, $_qtdEstab, $_qtdMaxComp, $_ultPregao, $_obs){        
+    function atuLab($_codigoEscola,$_usuario, $_data, $_qtdComp, $_qtdImp, $_qtdEstab, $_qtdMaxComp, $_ultPregao, $_dataUltRevisao, $_obs){        
         if($this->iniLabEscola($_codigoEscola) == '0'){
             
-            $consulta_atuLab = "INSERT INTO `escolas_laboratorio` (`codigo`, `codigo_escola_laboratorio`, `ultimo_pregao`,`cap_max_computadores`,`qtd_computadores`,`qtd_impressoras`,`qtd_estabilizadores`,`usuario_ult_edi`,`data_ult_edi`,`observacao`)"
-                                . " VALUES('1', '$_codigoEscola', '$_ultPregao', '$_qtdMaxComp', '$_qtdComp', '$_qtdImp', '$_qtdEstab', '$_usuario', '$_data', '$_obs'); ";                                
+            $consulta_atuLab = "INSERT INTO `escolas_laboratorio` (`codigo`, `codigo_escola_laboratorio`, `ultimo_pregao`,`cap_max_computadores`,`qtd_computadores`,`qtd_impressoras`,`qtd_estabilizadores`,`usuario_ult_edi`,`data_ult_edi`,`observacao`,`data_revisao`)"
+                                . " VALUES('1', '$_codigoEscola', '$_ultPregao', '$_qtdMaxComp', '$_qtdComp', '$_qtdImp', '$_qtdEstab', '$_usuario', '$_data', '$_obs', '$_dataUltRevisao'); ";
             $resultado_atuLab = mysqli_query($this->connect(), $consulta_atuLab);            
         } else {            
             $consulta_atuLab = " UPDATE `escolas_laboratorio` SET "
@@ -591,7 +601,8 @@ class Laboratorio extends Database {
                              . " `qtd_impressoras` = '$_qtdImp', "
                              . " `qtd_estabilizadores` = '$_qtdEstab' , "
                              . " `ultimo_pregao` = '$_ultPregao', "
-                             . " `cap_max_computadores` = '$_qtdMaxComp',"
+                             . " `cap_max_computadores` = '$_qtdMaxComp'," 
+                             . " `data_revisao` = '$_dataUltRevisao',"    
                              . " `observacao` = '$_obs' "
                              . " WHERE `codigo` = '1' AND `codigo_escola_laboratorio` = '$_codigoEscola';";                                
             $resultado_atuLab = mysqli_query($this->connect(), $consulta_atuLab);            

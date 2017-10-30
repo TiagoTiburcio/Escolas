@@ -24,10 +24,12 @@
     $diario->iniDiarioEscola($escola->getCodigo());
     
     $wifi->iniWifiEscola($escola->getCodigo());
+    
+    echo "asdasdadadada: ".$laboratorio->getDataRevisao();
 
 ?>
 <div class="col-lg-12 text-center">            
-            <h2>Atualizar Cadastro Escola</h2>
+            <h2>Atualizar Cadastro Escola </h2>
             <h2></h2>
             <form id="cadastro" name="cadastro" class="form-horizontal" method="post" onsubmit="return validaCadastro();" action="gravaeditescola.php">
              <div class="form-group">
@@ -117,25 +119,25 @@
                 </div>
                  <div class="col-lg-2 col-lg-offset-1" id="blocoAdminComp" <?php if($escola->getAdministrativo() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?> >
                     <div class="form-group right">
-                        <label for="admComputadores">Qtd. Computadores Setor Administrativo</label>
+                        <label for="admComputadores">Qtd. Comp. - Admin</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true"  id="admComputadores" name="admComputadores" value="<?php echo $administrativo->getQtdComputadores();?>">
                     </div>
                 </div>    
                 <div class="col-lg-3" id="blocoAdminImp" <?php if($escola->getAdministrativo() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group right">
-                        <label for="admImpressora">Qtd. Impressoras Setor Administrativo</label>
+                        <label for="admImpressora">Qtd. Imp. - Admin</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="admImpressora" name="admImpressora" value="<?php echo $administrativo->getQtdImpressoras();?>">
                     </div>
                 </div>
                 <div class="col-lg-3" id="blocoAdminEstab" <?php if($escola->getAdministrativo() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group right">
-                        <label for="admEstabilizadores">Qtd. Estabilizadores Setor Administrativo</label>
+                        <label for="admEstabilizadores">Qtd. Estab. - Admin</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="admEstabilizadores" name="admEstabilizadores" value="<?php echo $administrativo->getQtdEstabilizadores();?>">
                     </div>
                 </div>
                 <div class="col-lg-2" id="blocoAdminSca" <?php if($escola->getAdministrativo() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group right">
-                        <label for="admScanners">Qtd. Scanners Setor Administrativo</label>
+                        <label for="admScanners">Qtd. Scan. - Admin</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="admScanners" name="admScanners" value="<?php echo $administrativo->getQtdScanner();?>">
                     </div>
                 </div>
@@ -148,31 +150,37 @@
                  
                  <div class="col-lg-2 col-lg-offset-1" id="blocoLteComp" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?> >
                     <div class="form-group right">
-                        <label for="lteComputadores">Qtd. Computadores Laboratório - LTE</label>
+                        <label for="lteComputadores">Qtd. Comp. - LTE</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="lteComputadores" name="lteComputadores" value="<?php echo $laboratorio->getQtdComputadores();?>">
                     </div>
                 </div>    
                 <div class="col-lg-2" id="blocoLteImp" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group right">
-                        <label for="lteImpressoras">Qtd. Impressoras Laboratório - LTE</label>
+                        <label for="lteImpressoras">Qtd. Imp. - LTE</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="lteImpressoras" name="lteImpressoras" value="<?php echo $laboratorio->getQtdImpressoras();?>">
                     </div>
                 </div>
-                <div class="col-lg-2" id="blocoLteEstab" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                <div class="col-lg-1" id="blocoLteEstab" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group right">
-                        <label for="lteEstabilizadores">Qtd. Estabilizadores Laboratório - LTE</label>
+                        <label for="lteEstabilizadores">Qtd. Estab. - LTE</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="lteEstabilizadores" name="lteEstabilizadores" value="<?php echo $laboratorio->getQtdEstabilizadores();?>">
                     </div>
                 </div>
-                <div class="col-lg-2" id="blocoLteMax" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                <div class="col-lg-1" id="blocoLteMax" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group right">
-                        <label for="lteCapacidade">Capacidade Máxima Computadores - LTE</label>
+                        <label for="lteCapacidade">Cap. Máx. Comp. - LTE</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="lteCapacidade" name="lteCapacidade" value="<?php echo $laboratorio->getCapMaxComputadores();?>">
                     </div>
                 </div>
+                <div class="col-lg-2" id="blocoLteDataRev" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                    <div class="form-group right">
+                        <label for="ultRevisao">Data Ult. Revisão - LTE</label>
+                        <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="00/00/0000" data-mask-selectonfocus="true" id="ultRevisao" name="ultRevisao" value="<?php echo implode('/', array_reverse(explode('-', $laboratorio->getDataRevisao())));?>">
+                    </div>
+                </div> 
                 <div class="col-lg-2" id="blocoLtePreg" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group right">
-                        <label for="ultPregao">Último Pregão Recebido - LTE</label>
+                        <label for="ultPregao">Pregão - LTE</label>
                         <input type="text" class="form-control" id="ultPregao" name="ultPregao" value="<?php echo $laboratorio->getUltimoPregao();?>">
                     </div>
                 </div> 
@@ -185,13 +193,13 @@
                 
                  <div class="col-lg-2 col-lg-offset-1" id="blocoWifiApRouter" <?php if($escola->getWifi() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group right">
-                        <label for="wifiApRouter">Qtd. AP Router em Rede Wifi</label>
+                        <label for="wifiApRouter">Qtd. AP Router - Wifi</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="wifiApRouter" name="wifiApRouter" value="<?php echo $wifi->getQtdApRouter();?>">
                     </div>
                 </div> 
                 <div class="col-lg-2" id="blocoWifiAp" <?php if($escola->getWifi() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group right">
-                        <label for="wifiAp">Qtd. AP em Rede Wifi</label>
+                        <label for="wifiAp">Qtd. AP - Wifi</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="wifiAp" name="wifiAp" value="<?php echo $wifi->getQtdAp();?>">
                     </div>
                 </div> 
@@ -204,7 +212,7 @@
                  
                  <div class="col-lg-2 col-lg-offset-1" id="blocoDiarioTab" <?php if($escola->getDiario() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group right">
-                        <label for="diarioTablet">Qtd. Tablets Diario Eletrônico</label>                        
+                        <label for="diarioTablet">Qtd. Tablet - Diario</label>                        
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="diarioTablet" name="diarioTablet" value="<?php echo $diario->getQtdTablet();?>">
                     </div>
                 </div>                 

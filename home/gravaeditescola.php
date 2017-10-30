@@ -57,6 +57,7 @@
         $lteCapacidade = "0";
         $ultPregao = "0";
         $observacaoLte = "";
+        $dataUltRevis = "2000-01-01";
     } else if ($lteE == "1") {
         $lteComputadores = $_POST ["lteComputadores"];
         $lteImpressoras = $_POST ["lteImpressoras"];
@@ -64,9 +65,10 @@
         $lteCapacidade = $_POST ["lteCapacidade"];
         $ultPregao = $_POST ["ultPregao"];
         $observacaoLte = $_POST ["observacaoLte"];
+        $dataUltRevis = implode('-', array_reverse(explode('/', $_POST ["ultRevisao"])));
     }
-
-    $laboratorio->atuLab($codigo, $usuario->getUsuario(), $data, $lteComputadores, $lteImpressoras, $lteEstabilizadores, $lteCapacidade, $ultPregao, $observacaoLte);
+    echo $codigo.$usuario->getUsuario().$data.$lteComputadores.$lteImpressoras.$lteEstabilizadores.$lteCapacidade.$ultPregao."<br/>asdasd: ".$dataUltRevis."<br/>asdasd: ".$observacaoLte;
+    $laboratorio->atuLab($codigo, $usuario->getUsuario(), $data, $lteComputadores, $lteImpressoras, $lteEstabilizadores, $lteCapacidade, $ultPregao, $dataUltRevis, $observacaoLte );
     
     //Wifi 
     
@@ -94,5 +96,5 @@
     $diario->atuDiario($codigo, $usuario->getUsuario(), $data, $diarioTablet, $observacaoDiario);
     
     
-   header('location:index.php');    
+   //header('location:index.php');    
  
