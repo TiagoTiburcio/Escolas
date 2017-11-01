@@ -29,6 +29,8 @@
         document.getElementById("blocoAdminEstab").style.display = "block";
         document.getElementById("blocoAdminSca").style.display = "block";
         document.getElementById("blocoAdminObs").style.display = "block";
+        document.getElementById("blocoAdminFotoAntes").style.display = "block";
+        document.getElementById("blocoAdminFotoDepois").style.display = "block";
     }
     function escondeAdmin(){
         document.getElementById("blocoAdminComp").style.display = "none";
@@ -36,6 +38,8 @@
         document.getElementById("blocoAdminEstab").style.display = "none";
         document.getElementById("blocoAdminSca").style.display = "none";
         document.getElementById("blocoAdminObs").style.display = "none";
+        document.getElementById("blocoAdminFotoAntes").style.display = "none";
+        document.getElementById("blocoAdminFotoDepois").style.display = "none";
     }
     function mostraLte(){
         document.getElementById("blocoLteComp").style.display = "block";
@@ -45,6 +49,8 @@
         document.getElementById("blocoLtePreg").style.display = "block";
         document.getElementById("blocoLteObs").style.display = "block";
         document.getElementById("blocoLteDataRev").style.display = "block";
+        document.getElementById("blocoLteFotoAntes").style.display = "block";
+        document.getElementById("blocoLteFotoDepois").style.display = "block";
     }
     function escondeLte(){
         document.getElementById("blocoLteComp").style.display = "none";
@@ -54,28 +60,37 @@
         document.getElementById("blocoLtePreg").style.display = "none";
         document.getElementById("blocoLteObs").style.display = "none";
         document.getElementById("blocoLteDataRev").style.display = "none";
+        document.getElementById("blocoLteFotoAntes").style.display = "none";
+        document.getElementById("blocoLteFotoDepois").style.display = "none";
     }
     function mostraWifi(){
         document.getElementById("blocoWifiApRouter").style.display = "block";
         document.getElementById("blocoWifiAp").style.display = "block";
-        document.getElementById("blocoWifiObs").style.display = "block";    
+        document.getElementById("blocoWifiObs").style.display = "block";
+        document.getElementById("blocoWifiFotoAntes").style.display = "block";
+        document.getElementById("blocoWifiFotoDepois").style.display = "block";
     }
     function escondeWifi(){
         document.getElementById("blocoWifiApRouter").style.display = "none";
         document.getElementById("blocoWifiAp").style.display = "none";
-        document.getElementById("blocoWifiObs").style.display = "none";    
+        document.getElementById("blocoWifiObs").style.display = "none";
+        document.getElementById("blocoWifiFotoAntes").style.display = "none";
+        document.getElementById("blocoWifiFotoDepois").style.display = "none";
     }
     function mostraDiario(){
         document.getElementById("blocoDiarioTab").style.display = "block";
         document.getElementById("blocoDiarioObs").style.display = "block";
+        document.getElementById("blocoDiarioFotoAntes").style.display = "block";
+        document.getElementById("blocoDiarioFotoDepois").style.display = "block";
     }
     function escondeDiario(){
         document.getElementById("blocoDiarioTab").style.display = "none";
         document.getElementById("blocoDiarioObs").style.display = "none";
+        document.getElementById("blocoDiarioFotoAntes").style.display = "none";
+        document.getElementById("blocoDiarioFotoDepois").style.display = "none";
     }
 
-    function confereVisual(){ 
-        alert("adasdadads");
+    function confereVisual(){         
         if (document.cadastro.admin.value === "0" ){        
             escondeAdmin();
         } else if (document.cadastro.lte.value === "0" ){

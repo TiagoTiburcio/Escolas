@@ -15,7 +15,11 @@ if ($usuario->verificaUsuario($login, $pass_branco) == 1) {
 	$_SESSION['pass'] = $usuario->getSenha();
         $_SESSION['nome_usuario'] = $usuario->getNome();
         $_SESSION['diretoria'] = $usuario->getDiretoria();
-        echo '<META http-equiv="refresh" content="0;../home/index.php">';
+        if($usuario->getSenha() == "7c222fb2927d828af22f592134e8932480637c0d"){
+           header('location:novasenha.php'); 
+        } else {
+            header('location:index.php');
+        }
 }
 
 //Caso contrário redireciona para a p�gina de autentica��o
@@ -31,7 +35,7 @@ else {
         
 
 	//Redireciona para a página de autentica��o
-	echo '<META http-equiv="refresh" content="0;../home/login.php">';
+	header('location:login.php');
 	
 }
 

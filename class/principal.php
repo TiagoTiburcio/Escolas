@@ -172,7 +172,7 @@ class Usuario extends Database {
             unset ($_SESSION['diretoria']);
 
             //Redireciona para a página de autenticação
-            echo '<META http-equiv="refresh" content="0;../home/login.php">';
+            header('location:login.php');
         } else {
             $this->iniUsuario($_SESSION['login']);
         }        
@@ -615,7 +615,6 @@ class Laboratorio extends Database {
     function __destruct() {}
 }
 
-
 class Diario extends Database {
     private $codigo;
     
@@ -699,7 +698,6 @@ class Diario extends Database {
     
     function __destruct() {}
 }
-
 
 class Wifi extends Database {
     private $codigo;
@@ -791,4 +789,178 @@ class Wifi extends Database {
     }
     
     function __destruct() {}
+}
+
+class Fotos extends Database{
+    
+    private $codigo;
+    
+    private $escola;
+    
+    private $caminho;
+    
+    private $local;
+    
+    private $momento;
+    
+    private $descricao;
+    
+    static $momentoAntes = array("0", "1", "4","5","8","9","12","13");
+    
+    static $momentoDepois = array("2", "3", "6", "7", "10", "11", "14","15");
+    
+    static $localAdmin = array("0", "1", "2", "3");
+    
+    static $localLte = array("4", "5", "6", "7");
+    
+    static $localWifi = array("8", "9", "10", "11");
+    
+    static $localDiario = array("12", "13", "14", "15");
+    
+    function getCodigo(){ return $this->codigo; }
+    
+    function setCodigo($_codigoFoto){ $this->codigo = $_codigoFoto; }
+    
+    function getEscola(){ return $this->escola; }
+    
+    function setEscola($_codigoEscola){ 
+        $this->escola = new Escolas();
+        $this->escola->iniEscola($_codigoEscola); }
+    
+    function getCaminho(){ return $this->caminho; }
+    
+    function setCaminho($_caminho){ $this->caminho = $_caminho; }
+    
+    function getLocal(){ return $this->local; }
+    
+    function setLocal($_local){ $this->local = $_local; }
+    
+    function getMomento(){ return $this->momento; }
+    
+    function setMomento($_momento){ $this->momento = $_momento; }
+    
+    function getDescricao(){ return $this->descricao; }
+    
+    function setDescricao($_descricao){ $this->descricao = $_descricao; }
+    
+    function iniFotoEscola($_codigoEscola, $_codigoFoto){
+        $consulta_iniFoto = "SELECT count(e.codigo_foto) as cont, e.* FROM `escolas_fotos` as e  where e.`codigo_foto` = '$_codigoFoto' and e.`codigo_escola` = '$_codigoEscola' and e.`ativo` = '1';";
+        $resultado_iniFoto = mysqli_query($this->connect(), $consulta_iniFoto);
+         foreach ($resultado_iniFoto as $table_iniFoto){
+            $resultado = $table_iniFoto["cont"];
+            $this->setCodigo($table_iniFoto["codigo_foto"]);
+            $this->setEscola($table_iniFoto["codigo_escola"]);
+            $this->setMomento($table_iniFoto["momento"]);
+            $this->setLocal($table_iniFoto["local"]);
+            $this->setDescricao($table_iniFoto["descricao_foto"]);
+            $this->setCaminho($table_iniFoto["caminho_arquivo"]);
+         }
+        return $resultado;    
+    }
+    
+    function listaFotos($_codigoEscola){
+        $consulta_listaFotos = "SELECT date_format(data_ult_edi, '%d/%m/%Y') as 'data_up', e.* FROM `escolas_fotos` as e  where e.`codigo_escola` = '$_codigoEscola' and e.`ativo` = '1';";
+        $resultado_listaFotos = mysqli_query($this->connect(), $consulta_listaFotos);         
+        return $resultado_listaFotos;    
+    }
+
+
+    private function gravaBanco($_codigoFoto, $_codigoEscola, $_caminho, $_local, $_momento, $_descricao, $_usuario){
+        $data = date_default_timezone_set("America/Bahia");
+        $data = date('Y-m-d H:i:s');
+        // retorno = 1 - usuario cadastrado 0 - usuario não cadastrado    
+        if($this->iniFotoEscola($_codigoEscola , $_codigoFoto) == '1'){
+            $consulta_gravaBanco = " UPDATE `escolas_fotos` SET "
+                    . " `descricao_foto` = '$_descricao', "
+                    . " `caminho_arquivo` = '$_caminho', "
+                    . " `local` = '$_local', "
+                    . " `momento` = '$_momento', "
+                    . " `usuario_ult_edi` = '$_usuario', "
+                    . " `data_ult_edi` = '$data' "
+                    . " `ativo` = '1' "
+                    . " WHERE `codigo_foto` = '$_codigoFoto' AND `codigo_escola` = '$_codigoEscola'; ";                                
+            $resultado_gravaBanco = mysqli_query($this->connect(), $consulta_gravaBanco);            
+        } else {
+            $consulta_gravaBanco = " INSERT INTO `escolas_fotos`(`codigo_foto`,`codigo_escola`,`descricao_foto`,`caminho_arquivo`,`local`,`momento`,`usuario_ult_edi`,`data_ult_edi`,`ativo`) "
+                    . " VALUES ('$_codigoFoto','$_codigoEscola','$_descricao','$_caminho','$_local','$_momento','$_usuario','$data','1'); ";
+            $resultado_gravaBanco = mysqli_query($this->connect(), $consulta_gravaBanco);            
+        }
+        return $consulta_gravaBanco;       
+    }
+    
+    function gravaFoto($_arquivo ,$_codEscola, $_usuario){
+        $numeroCampos = 16; // Numero de campos de upload        
+        $tamanhoMaximo = 1000000;// Tamanho máximo do arquivo (em bytes)
+        $caminho = "uploads/";// Caminho para onde o arquivo será enviado
+        for ($i = 0; $i < $numeroCampos; $i++) {
+            if(in_array($i, self::$momentoAntes)){ $momento = "antes"; } 
+            elseif (in_array($i, self::$momentoDepois)) { $momento = "depois"; }
+            if(in_array($i, self::$localAdmin)){ $local = "admin"; } 
+            elseif (in_array($i, self::$localLte)) { $local = "lte"; }
+            elseif (in_array($i, self::$localDiario)) { $local = "diario"; }
+            elseif (in_array($i, self::$localWifi)) { $local = "wifi"; }
+            $nomeArquivo = $_codEscola."_".$local."_".$momento."_".$i.strrchr($_FILES["$_arquivo"]["name"][$i], ".");
+            $tamanhoArquivo = $_FILES["$_arquivo"]["size"][$i];
+            $nomeTemporario = $_FILES["$_arquivo"]["tmp_name"][$i];
+            $this->setEscola($_codEscola);
+            $this->setCodigo($i);
+            $this->validaArquivo($nomeArquivo, $nomeTemporario, $tamanhoArquivo, $tamanhoMaximo, $caminho,$local,$momento,"", $_usuario);
+        }
+    }
+    
+    private function validaArquivo($_nomeArquivo, $_nomeTemporario,  $_tamanhoArquivo, $_tamanhoMaximo, $_caminho, $_local, $_momento,$_descricao, $_usuario){
+        if (!empty($_nomeArquivo)) {                    
+                        $erro = false;                        
+                        $extensoes = array(".jpg", ".png", ".jpeg",".bmp",".gif");// Extensões aceitas
+                        $substituir = true; // Substituir arquivo já existente (true = sim; false = nao)
+                        if ($_tamanhoArquivo == 0) { 
+                            $erro = "Selecione um arquivo!!"; } 
+                        // Verifica se o tamanho do arquivo é maior que o permitido
+                        elseif ($_tamanhoArquivo > $_tamanhoMaximo) {
+                            $erro = "O arquivo " . $_nomeArquivo . " não deve ultrapassar " . $_tamanhoMaximo. " bytes"; } 
+                        // Verifica se a extensão está entre as aceitas
+                        elseif (!in_array(strrchr($_nomeArquivo, "."), $extensoes)) {
+                            $erro = "A extensão do arquivo <b>" . $_nomeArquivo . "</b> não é válida"; } 
+                        // Verifica se o arquivo existe e se é para substituir
+                        elseif (file_exists($_caminho . $_nomeArquivo) and !$substituir) {
+                            $erro = "O arquivo <b>" . $_nomeArquivo . "</b> já existe"; }
+                        // Se não houver erro
+                        if (!$erro) { // Move o arquivo para o caminho definido
+                            move_uploaded_file($_nomeTemporario, ($_caminho . $_nomeArquivo));
+                            // Mensagem de sucesso
+                            $caminhoComp = $_caminho.$_nomeArquivo;
+                            echo "O arquivo <b>".$_nomeArquivo."</b> foi enviado com sucesso. <br />";
+                            $this->gravaBanco($this->getCodigo(), $this->escola->getCodigo(), $caminhoComp, $_local, $_momento, $_descricao, $_usuario); }
+                        // Se houver erro Mensagem de erro
+                        else { echo $erro . "<br />"; }
+                }
+    }
+    
+    function carrossel($_codigoEscola){        
+        $i = 0;
+        $resultado_listaFotos = $this->listaFotos($_codigoEscola);        
+        foreach ($resultado_listaFotos as $table_listaFotos){            
+            $codigo[$i] = $table_listaFotos["codigo_foto"];            
+            $momento[$i] = $table_listaFotos["momento"];
+            $local[$i] = $table_listaFotos["local"];
+            $descricao[$i] = $table_listaFotos["descricao_foto"];
+            $caminho[$i] = $table_listaFotos["caminho_arquivo"];
+            $dataUp[$i] = $table_listaFotos["data_up"];
+            $i = $i + 1;            
+        }
+        
+        if(mysqli_num_rows($resultado_listaFotos) > 0){
+            echo '<div class="col-lg-12"> <div id="myCarousel" class="col-lg-4 col-lg-offset-4 carousel slide" data-ride="carousel"><ol class="carousel-indicators">';
+            echo '<li data-target="#myCarousel" data-slide-to="'.$codigo[0].'" class="active"></li>';
+            for ($i = 1; $i < mysqli_num_rows($resultado_listaFotos); $i++) {
+                echo '<li data-target="#myCarousel" data-slide-to="'.$codigo[$i].'"></li>';
+            }
+            echo '</ol><div class="carousel-inner">'
+                .'<div class="item active"><img src="'.$caminho[0].'" alt="'.$momento[0].' '.$local[0].'"><h3>'.$local[0].' '.$momento[0].'</h3><p>Foto '.$local[0].' '.$momento[0].' '.$descricao[0].' data upload '.$dataUp[0].'</p></div>';
+            for ($i = 1; $i < mysqli_num_rows($resultado_listaFotos); $i++) {
+                echo '<div class="item"><img src="'.$caminho[$i].'" alt="'.$momento[$i].' '.$local[$i].'"><h3>'.$local[$i].' '.$momento[$i].'</h3><p>Foto '.$local[$i].' '.$momento[$i].' '.$descricao[$i].' data upload '.$dataUp[$i].'</p></div>';
+            }            
+            echo '<a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span><span class="sr-only">Previous</span></a><a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span><span class="sr-only">Next</span></a></div></div></div>';
+        }        
+    }
 }

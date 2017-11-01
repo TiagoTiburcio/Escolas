@@ -70,6 +70,10 @@
    
     $laboratorio->atuLab($codigo, $usuario->getUsuario(), $data, $lteComputadores, $lteImpressoras, $lteEstabilizadores, $lteCapacidade, $ultPregao, $dataUltRevis, $observacaoLte );
     
+    $fotos = new Fotos();
+    $fotos->gravaFoto("foto",$codigo,$usuario->getUsuario());
+    
+    echo "<div/>";
     //Wifi 
     
     if ($wifiE == "0") {
@@ -96,5 +100,5 @@
     $diario->atuDiario($codigo, $usuario->getUsuario(), $data, $diarioTablet, $observacaoDiario);
     
     
-   header('location:index.php');    
+  header('location:index.php');    
  

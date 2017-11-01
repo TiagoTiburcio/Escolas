@@ -12,6 +12,8 @@
     $diario = new Diario();
     
     $wifi = new Wifi();
+    
+    $foto = new Fotos();
             
     $usuario->validaSessao();
     
@@ -25,11 +27,12 @@
     
     $wifi->iniWifiEscola($escola->getCodigo());
     
+    
 ?>
 <div class="col-lg-12 text-center">            
             <h2>Atualizar Cadastro Escola </h2>
             <h2></h2>
-            <form id="cadastro" name="cadastro" class="form-horizontal" method="post" onsubmit="return validaCadastro();" action="gravaeditescola.php">
+            <form id="cadastro" name="cadastro" class="form-horizontal" method="post" onsubmit="return validaCadastro();" action="gravaeditescola.php" enctype="multipart/form-data">
              <div class="form-group">
                 <div>
                     <div class="form-group" hidden="">
@@ -114,8 +117,9 @@
                         <label for="observacaoEscola">Observações Sobre Escolas:</label>
                         <textarea class="form-control" rows="1" id="observacaoEscola" name="observacaoEscola"><?php echo $escola->getObservacao();?></textarea>
                     </div>  
-                </div>
-                 <div class="col-lg-2 col-lg-offset-1" id="blocoAdminComp" <?php if($escola->getAdministrativo() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?> >
+                </div>                
+                <?php $foto->carrossel($escola->getCodigo());?>
+                <div class="col-lg-2 col-lg-offset-1" id="blocoAdminComp" <?php if($escola->getAdministrativo() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?> >
                     <div class="form-group right">
                         <label for="admComputadores">Qtd. Comp. - Admin</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true"  id="admComputadores" name="admComputadores" value="<?php echo $administrativo->getQtdComputadores();?>">
@@ -139,6 +143,36 @@
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="admScanners" name="admScanners" value="<?php echo $administrativo->getQtdScanner();?>">
                     </div>
                 </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-4 col-lg-offset-1" id="blocoAdminFotoAntes" <?php if($escola->getAdministrativo() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                        <div class="form-group">
+                            <label for="fotoAntesAdmin">Fotos Antes Revisão - Admin:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">Foto Antes 1 - Admin <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <input type="file" name="foto[]" />
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">Foto Antes 2 - Admin <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <input type="file" name="foto[]" />
+                            </div>
+                            <p>Extensões permitidas no upload (.jpg, .png, .jpeg,.bmp e .gif). Tamanho Máx. Arquivo 900kb</p>
+                        </div>  
+                    </div>
+                     <div class="col-lg-4 col-lg-offset-1" id="blocoAdminFotoDepois" <?php if($escola->getAdministrativo() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                        <div class="form-group">
+                            <label for="fotoDepoisLte1">Fotos Depois Revisão - Admin:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">Foto Depois 1 - Admin <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <input type="file" name="foto[]" />
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">Foto Depois 2 - Admin <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <input type="file" name="foto[]" />
+                            </div>
+                            <p>Extensões permitidas no upload (.jpg, .png, .jpeg,.bmp e .gif). Tamanho Máx. Arquivo 900kb</p>
+                        </div>  
+                    </div>
+                </div>    
                 <div class="col-lg-10 col-lg-offset-1" id="blocoAdminObs" <?php if($escola->getAdministrativo() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group">
                         <label for="observacaoAdmin">Observações Sobre Setor Administrativo:</label>
@@ -146,42 +180,72 @@
                     </div>  
                 </div>
                  
-                 <div class="col-lg-2 col-lg-offset-1" id="blocoLteComp" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?> >
+                 <div class="col-lg-3 col-lg-offset-1" id="blocoLteComp" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?> >
                     <div class="form-group right">
                         <label for="lteComputadores">Qtd. Comp. - LTE</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="lteComputadores" name="lteComputadores" value="<?php echo $laboratorio->getQtdComputadores();?>">
                     </div>
                 </div>    
-                <div class="col-lg-2" id="blocoLteImp" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                <div class="col-lg-4" id="blocoLteImp" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group right">
                         <label for="lteImpressoras">Qtd. Imp. - LTE</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="lteImpressoras" name="lteImpressoras" value="<?php echo $laboratorio->getQtdImpressoras();?>">
                     </div>
                 </div>
-                <div class="col-lg-1" id="blocoLteEstab" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                <div class="col-lg-3" id="blocoLteEstab" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group right">
                         <label for="lteEstabilizadores">Qtd. Estab. - LTE</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="lteEstabilizadores" name="lteEstabilizadores" value="<?php echo $laboratorio->getQtdEstabilizadores();?>">
                     </div>
                 </div>
-                <div class="col-lg-1" id="blocoLteMax" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                <div class="col-lg-3 col-lg-offset-1" id="blocoLteMax" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group right">
                         <label for="lteCapacidade">Cap. Máx. Comp. - LTE</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="lteCapacidade" name="lteCapacidade" value="<?php echo $laboratorio->getCapMaxComputadores();?>">
                     </div>
                 </div>
-                <div class="col-lg-2" id="blocoLteDataRev" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                <div class="col-lg-4" id="blocoLteDataRev" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group right">
                         <label for="ultRevisao">Data Ult. Revisão - LTE</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="00/00/0000" data-mask-selectonfocus="true" id="ultRevisao" name="ultRevisao" value="<?php echo implode('/', array_reverse(explode('-', $laboratorio->getDataRevisao())));?>">
                     </div>
                 </div> 
-                <div class="col-lg-2" id="blocoLtePreg" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                <div class="col-lg-3" id="blocoLtePreg" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group right">
                         <label for="ultPregao">Pregão - LTE</label>
                         <input type="text" class="form-control" id="ultPregao" name="ultPregao" value="<?php echo $laboratorio->getUltimoPregao();?>">
                     </div>
                 </div> 
+                <div class="col-lg-12"> 
+                    <div class="col-lg-4 col-lg-offset-1" id="blocoLteFotoAntes" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                        <div class="form-group">
+                            <label for="fotoAntesLte">Fotos Antes Revisão - LTE:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">Foto Antes 1 - LTE <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <input type="file" name="foto[]" />
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">Foto Antes 2 - LTE <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <input type="file" name="foto[]" />
+                            </div>
+                            <p>Extensões permitidas no upload (.jpg, .png, .jpeg,.bmp e .gif). Tamanho Máx. Arquivo 900kb</p>
+                        </div>  
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-1" id="blocoLteFotoDepois" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                        <div class="form-group">
+                            <label for="fotoDepoisLte1">Fotos Depois Revisão - LTE:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">Foto Depois 1 - LTE <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <input type="file" name="foto[]" />
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">Foto Depois 2 - LTE <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <input type="file" name="foto[]" />                                
+                            </div>
+                            <p>Extensões permitidas no upload (.jpg, .png, .jpeg,.bmp e .gif). Tamanho Máx. Arquivo 900kb</p>
+                        </div>  
+                    </div>
+                </div>    
                 <div class="col-lg-10 col-lg-offset-1" id="blocoLteObs" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group">
                         <label for="observacaoLte">Observações Sobre Laboratório - LTE:</label>
@@ -200,7 +264,37 @@
                         <label for="wifiAp">Qtd. AP - Wifi</label>
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="wifiAp" name="wifiAp" value="<?php echo $wifi->getQtdAp();?>">
                     </div>
-                </div> 
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-4 col-lg-offset-1" id="blocoWifiFotoAntes" <?php if($escola->getWifi() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                        <div class="form-group">
+                            <label for="fotoAntesWifi">Fotos Antes Revisão - Wifi:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">Foto Antes 1 - Wifi <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <input type="file" name="foto[]" />
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">Foto Antes 2 - Wifi <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <input type="file" name="foto[]" />
+                            </div>
+                            <p>Extensões permitidas no upload (.jpg, .png, .jpeg,.bmp e .gif). Tamanho Máx. Arquivo 900kb</p>
+                        </div>  
+                    </div>
+                     <div class="col-lg-4 col-lg-offset-1" id="blocoWifiFotoDepois" <?php if($escola->getWifi() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                        <div class="form-group">
+                            <label for="fotoDepoisWifi">Fotos Depois Revisão - Wifi:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">Foto Depois 1 - Wifi <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <input type="file" name="foto[]" />
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">Foto Depois 2 - Wifi <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <input type="file" name="foto[]" />
+                            </div>
+                            <p>Extensões permitidas no upload (.jpg, .png, .jpeg,.bmp e .gif). Tamanho Máx. Arquivo 900kb</p>
+                        </div>  
+                    </div>
+                </div>    
                 <div class="col-lg-10 col-lg-offset-1" id="blocoWifiObs" <?php if($escola->getWifi() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group">
                         <label for="observacaoWifi">Observações Sobre Redes Wifi:</label>
@@ -210,11 +304,41 @@
                  
                  <div class="col-lg-2 col-lg-offset-1" id="blocoDiarioTab" <?php if($escola->getDiario() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group right">
-                        <label for="diarioTablet">Qtd. Tablet - Diario</label>                        
+                        <label for="diarioTablet">Qtd. Tablet - Diário</label>                        
                         <input type="text" class="simple-field-data-mask-selectonfocus form-control" data-mask="0000" data-mask-selectonfocus="true" id="diarioTablet" name="diarioTablet" value="<?php echo $diario->getQtdTablet();?>">
                     </div>
-                </div>                 
-                <div class="col-lg-10 col-lg-offset-1" id="blocoDiarioObs" <?php if($escola->getDiario() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-4 col-lg-offset-1" id="blocoDiarioFotoAntes" <?php if($escola->getDiario() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                        <div class="form-group">
+                            <label for="fotoAntesDiario">Fotos Antes Revisão - Diário:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">Foto Antes 1 - Diário <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <input type="file" name="foto[]" />
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">Foto Antes 2 - Diário <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <input type="file" name="foto[]" />
+                            </div>
+                            <p>Extensões permitidas no upload (.jpg, .png, .jpeg,.bmp e .gif). Tamanho Máx. Arquivo 900kb</p>
+                        </div>  
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-1" id="blocoDiarioFotoDepois" <?php if($escola->getWifi() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
+                        <div class="form-group">
+                            <label for="fotoDepoisDiario">Fotos Depois Revisão - Diário:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">Foto Depois 1 - Diário <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <input type="file" name="foto[]" />
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">Foto Depois 2 - Diário <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <input type="file" name="foto[]" />
+                            </div>
+                            <p>Extensões permitidas no upload (.jpg, .png, .jpeg,.bmp e .gif). Tamanho Máx. Arquivo 900kb</p>
+                        </div>  
+                    </div>
+                </div>    
+                 <div class="col-lg-10 col-lg-offset-1" id="blocoDiarioObs" <?php if($escola->getDiario() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                     <div class="form-group">
                         <label for="observacaoDiario">Observações Sobre Redes Diário Eletrônico:</label>
                         <textarea class="form-control" rows="1" id="observacaoDiario" name="observacaoDiario"><?php echo $diario->getObservacao();?></textarea>
@@ -223,7 +347,7 @@
                 
                  <div class="col-lg-12">    
                       <a type="button" class="btn btn-danger"  href="">Reiniciar Tela <span class="glyphicon glyphicon-erase"></span></a>                 
-                      <button type="submit" class="btn btn-success">Salvar <span class="glyphicon glyphicon-floppy-disk"></span></button>                  
+                      <button type="submit" class="btn btn-success" name="submit">Salvar <span class="glyphicon glyphicon-floppy-disk"></span></button>                  
                 </div>
              </div>
                               
