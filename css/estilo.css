@@ -30,3 +30,11 @@ footer {
     font-weight:bold;
     text-decoration: underline;
 }
+
+
+.centraliza{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

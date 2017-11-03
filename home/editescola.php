@@ -147,12 +147,12 @@
                     <div class="col-lg-4 col-lg-offset-1" id="blocoAdminFotoAntes" <?php if($escola->getAdministrativo() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                         <div class="form-group">
                             <label for="fotoAntesAdmin">Fotos Antes Revisão - Admin:</label>
-                            <div class="input-group">
-                                <span class="input-group-addon">Foto Antes 1 - Admin <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                            <div class="input-group centraliza">
+                                <span class="input-group">Foto Antes 1 - Admin <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
                                 <input type="file" name="foto[]" />
                             </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">Foto Antes 2 - Admin <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                            <div class="input-group centraliza">
+                                <span class="input-group">Foto Antes 2 - Admin <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
                                 <input type="file" name="foto[]" />
                             </div>
                             <p>Extensões permitidas no upload (.jpg, .png, .jpeg,.bmp e .gif). Tamanho Máx. Arquivo 900kb</p>
@@ -161,12 +161,12 @@
                      <div class="col-lg-4 col-lg-offset-1" id="blocoAdminFotoDepois" <?php if($escola->getAdministrativo() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                         <div class="form-group">
                             <label for="fotoDepoisLte1">Fotos Depois Revisão - Admin:</label>
-                            <div class="input-group">
-                                <span class="input-group-addon">Foto Depois 1 - Admin <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                            <div class="input-group centraliza">
+                                <span class="input-group">Foto Depois 1 - Admin <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
                                 <input type="file" name="foto[]" />
                             </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">Foto Depois 2 - Admin <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                            <div class="input-group centraliza">
+                                <span class="input-group">Foto Depois 2 - Admin <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
                                 <input type="file" name="foto[]" />
                             </div>
                             <p>Extensões permitidas no upload (.jpg, .png, .jpeg,.bmp e .gif). Tamanho Máx. Arquivo 900kb</p>
@@ -220,26 +220,26 @@
                     <div class="col-lg-4 col-lg-offset-1" id="blocoLteFotoAntes" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                         <div class="form-group">
                             <label for="fotoAntesLte">Fotos Antes Revisão - LTE:</label>
-                            <div class="input-group">
-                                <span class="input-group-addon">Foto Antes 1 - LTE <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                            <div class="input-group centraliza">
+                                <span class="input-group">Foto Antes 1 - LTE <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
                                 <input type="file" name="foto[]" />
                             </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">Foto Antes 2 - LTE <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                            <div class="input-group centraliza">
+                                <span class="input-group ">Foto Antes 2 - LTE <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
                                 <input type="file" name="foto[]" />
                             </div>
                             <p>Extensões permitidas no upload (.jpg, .png, .jpeg,.bmp e .gif). Tamanho Máx. Arquivo 900kb</p>
                         </div>  
                     </div>
                     <div class="col-lg-4 col-lg-offset-1" id="blocoLteFotoDepois" <?php if($escola->getLaboratorio() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
-                        <div class="form-group">
+                        <div class="form-group ">
                             <label for="fotoDepoisLte1">Fotos Depois Revisão - LTE:</label>
-                            <div class="input-group">
-                                <span class="input-group-addon">Foto Depois 1 - LTE <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                            <div class="input-group centraliza">
+                                <span class="input-group">Foto Depois 1 - LTE <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
                                 <input type="file" name="foto[]" />
                             </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">Foto Depois 2 - LTE <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                            <div class="input-group centraliza">
+                                <span class="input-group">Foto Depois 2 - LTE <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
                                 <input type="file" name="foto[]" />                                
                             </div>
                             <p>Extensões permitidas no upload (.jpg, .png, .jpeg,.bmp e .gif). Tamanho Máx. Arquivo 900kb</p>
@@ -269,12 +269,12 @@
                     <div class="col-lg-4 col-lg-offset-1" id="blocoWifiFotoAntes" <?php if($escola->getWifi() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                         <div class="form-group">
                             <label for="fotoAntesWifi">Fotos Antes Revisão - Wifi:</label>
-                            <div class="input-group">
-                                <span class="input-group-addon">Foto Antes 1 - Wifi <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                            <div class="input-group centraliza">
+                                <span class="input-group">Foto Antes 1 - Wifi <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
                                 <input type="file" name="foto[]" />
                             </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">Foto Antes 2 - Wifi <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                            <div class="input-group centraliza">
+                                <span class="input-group">Foto Antes 2 - Wifi <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
                                 <input type="file" name="foto[]" />
                             </div>
                             <p>Extensões permitidas no upload (.jpg, .png, .jpeg,.bmp e .gif). Tamanho Máx. Arquivo 900kb</p>
@@ -283,12 +283,12 @@
                      <div class="col-lg-4 col-lg-offset-1" id="blocoWifiFotoDepois" <?php if($escola->getWifi() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                         <div class="form-group">
                             <label for="fotoDepoisWifi">Fotos Depois Revisão - Wifi:</label>
-                            <div class="input-group">
-                                <span class="input-group-addon">Foto Depois 1 - Wifi <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                            <div class="input-group centraliza">
+                                <span class="input-group">Foto Depois 1 - Wifi <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
                                 <input type="file" name="foto[]" />
                             </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">Foto Depois 2 - Wifi <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                            <div class="input-group centraliza">
+                                <span class="input-group">Foto Depois 2 - Wifi <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
                                 <input type="file" name="foto[]" />
                             </div>
                             <p>Extensões permitidas no upload (.jpg, .png, .jpeg,.bmp e .gif). Tamanho Máx. Arquivo 900kb</p>
@@ -312,12 +312,12 @@
                     <div class="col-lg-4 col-lg-offset-1" id="blocoDiarioFotoAntes" <?php if($escola->getDiario() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                         <div class="form-group">
                             <label for="fotoAntesDiario">Fotos Antes Revisão - Diário:</label>
-                            <div class="input-group">
-                                <span class="input-group-addon">Foto Antes 1 - Diário <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                            <div class="input-group centraliza">
+                                <span class="input-group">Foto Antes 1 - Diário <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
                                 <input type="file" name="foto[]" />
                             </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">Foto Antes 2 - Diário <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                            <div class="input-group centraliza">
+                                <span class="input-group">Foto Antes 2 - Diário <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
                                 <input type="file" name="foto[]" />
                             </div>
                             <p>Extensões permitidas no upload (.jpg, .png, .jpeg,.bmp e .gif). Tamanho Máx. Arquivo 900kb</p>
@@ -326,12 +326,12 @@
                     <div class="col-lg-4 col-lg-offset-1" id="blocoDiarioFotoDepois" <?php if($escola->getWifi() == 1){echo 'style="display:  block"';} else {echo 'style="display:  none"';} ?>>
                         <div class="form-group">
                             <label for="fotoDepoisDiario">Fotos Depois Revisão - Diário:</label>
-                            <div class="input-group">
-                                <span class="input-group-addon">Foto Depois 1 - Diário <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                            <div class="input-group centraliza">
+                                <span class="input-group">Foto Depois 1 - Diário <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
                                 <input type="file" name="foto[]" />
                             </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">Foto Depois 2 - Diário <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                            <div class="input-group centraliza">
+                                <span class="input-group">Foto Depois 2 - Diário <i  class="glyphicon glyphicon-circle-arrow-right"></i></span>
                                 <input type="file" name="foto[]" />
                             </div>
                             <p>Extensões permitidas no upload (.jpg, .png, .jpeg,.bmp e .gif). Tamanho Máx. Arquivo 900kb</p>
